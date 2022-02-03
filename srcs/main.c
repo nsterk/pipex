@@ -1,8 +1,5 @@
-#include <unistd.h>
-#include <stdio.h>
 #include <fcntl.h>
 #include <sys/wait.h>
-#include <stdlib.h>
 #include <time.h>
 #include <pipex.h>
 
@@ -37,20 +34,15 @@ static void	init_pipex(t_pipex *pipex)
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
-	// int	fd[2];
 	int	i;
-	// int	file;
-	//	int	file2;
-	if (argc == 2)
-		i = 0;
 	init_pipex(&pipex);
 	pipex.paths = ft_split(get_paths(envp), ':');
-	if (get_command(argv[1], &pipex.cmd1))
+	if (get_command(argv[2], &pipex.cmd1))
 		perror("failed to get cmd1");
-	if (get_command(argv[2], &pipex.cmd2))
+	if (get_command(argv[3], &pipex.cmd2))
 		perror("failed to get cmd2");
-	// if (pipe(fd) == -1)
-	// 	return (1);
+	if (pipe(pipex.fd) == -1)
+		return (1);
 	i = 0;
 	get_fullcmd(pipex.paths, pipex.cmd1, &pipex.fullcmd1);
 	get_fullcmd(pipex.paths, pipex.cmd2, &pipex.fullcmd2);
@@ -59,34 +51,36 @@ int	main(int argc, char **argv, char **envp)
 		return (2);
 	if (pipex.pid1 == 0)
 	{	// process 1: ls
-		// dup2(fd[1], STDOUT_FILENO);
-		// close(fd[0]);
-		// close(fd[1]);
+		pipex.infile = open(argv[1], O_RDONLY, 0777);
+		if (pipex.infile == -1)
+			perror("failed to open infile");
+		dup2(pipex.fd[1], STDOUT_FILENO);
+		dup2(pipex.infile, STDIN_FILENO);
+		close(pipex.fd[0]);
+		close(pipex.fd[1]);
 		if (execve(pipex.fullcmd1, pipex.cmd1, envp) == -1)
 			perror("execve process 1 failed");		
 	}
-	// int	pid2 = fork();
-	// if (pid2 < 0)
-	// 	return (3);
-	// if (pid2 == 0){// process 2: grep
-	// 	// file = open("pippy.txt", O_WRONLY | O_CREAT, 0777);
-	// 	// if (file == -1)
-	// 	// {	
-	// 	// 	printf("failed to open or create file");
-	// 	// 	exit(0);
-	// 	// }
-	// 	// dup2(fd[0], STDIN_FILENO);
-	// 	// dup2(file, STDOUT_FILENO);
-	// 	// close(file);
-	// 	// close(fd[0]);
-	// 	// close(fd[1]);
-	// 	printf("this should show up in pippy.txt");
-	// 	if (execve(pipex.fullcmd2, pipex.cmd2, envp) == -1)
-	// 		perror("execv process 2 failed");
-	// }
-	// close(fd[0]);
-	// close(fd[1]);
+	pipex.pid2 = fork();
+	if (pipex.pid2 < 0)
+		return (3);
+	if (pipex.pid2 == 0)
+	{// process 2: grep
+		last_child(&pipex, argv[argc - 1], envp);
+		// pipex.outfile = open(argv[argc - 1], O_WRONLY | O_CREAT, 0777);
+		// if (pipex.outfile == -1)
+		// 	perror("failed to open outfile");
+		// dup2(pipex.fd[0], STDIN_FILENO);
+		// dup2(pipex.outfile, STDOUT_FILENO);
+		// close(pipex.outfile);
+		// close(pipex.fd[0]);
+		// close(pipex.fd[1]);
+		// if (execve(pipex.fullcmd2, pipex.cmd2, envp) == -1)
+		// 	perror("execv process 2 failed");
+	}
+	close(pipex.fd[0]);
+	close(pipex.fd[1]);
 	waitpid(pipex.pid1, NULL, 0);
-	// waitpid(pipex.pid2, NULL, 0);
+	waitpid(pipex.pid2, NULL, 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/03 17:55:17 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/03 21:43:28 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_pipex
 	char	*fullcmd2;
 	int		pid1;
 	int		pid2;
+	int		infile;
+	int		outfile;
 	int		fd[2];
 }				t_pipex;
 
@@ -38,5 +40,6 @@ char	**ft_split(char const *s, char c);
 int		ft_strlcpy(char *dest, const char *src, int size);
 int		get_command(char *arg, char ***cmd);
 int		get_fullcmd(char **paths, char **cmd, char **fullcmd);
+void	last_child(t_pipex *pipex, char *file, char **envp);
 
 #endif
