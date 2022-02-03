@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/01 14:53:28 by nsterk        #+#    #+#                  #
-#    Updated: 2022/02/03 00:49:33 by naomisterk    ########   odam.nl          #
+#    Updated: 2022/02/03 17:25:43 by naomisterk    ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ CC			=	gcc
 FLAGS		=	-Wall -Wextra -Werror -g
 
 SRCS		=	srcs/main.c srcs/utils/ft_strjoin.c srcs/utils/ft_split.c \
-				srcs/utils/ft_strcmp.c srcs/utils/ft_strncmp.c
+				srcs/utils/ft_strcmp.c srcs/utils/ft_strncmp.c \
+				srcs/get_commands.c
 OBJS		=	$(SRCS:%.c=%.o)
 
 ifdef DEBUG
