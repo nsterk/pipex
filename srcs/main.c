@@ -19,18 +19,6 @@ static void	init_pipex(t_pipex *pipex)
 	pipex->fullcmd2 = NULL;
 }
 
-// static void print_array(char **str)
-// {
-// 	while (*str)
-// 	{
-// 		printf("%s\n", *str);
-// 		str++;
-// 	}
-// 	printf("%s\n", *str);
-// 	return ;
-// }
-
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
@@ -50,18 +38,7 @@ int	main(int argc, char **argv, char **envp)
 	if (pipex.pid1 < 0)
 		return (2);
 	if (pipex.pid1 == 0)
-	{	// process 1: ls
 		first_child(&pipex, argv[1], envp);
-		// pipex.infile = open(argv[1], O_RDONLY, 0777);
-		// if (pipex.infile == -1)
-		// 	perror("failed to open infile");
-		// dup2(pipex.fd[1], STDOUT_FILENO);
-		// dup2(pipex.infile, STDIN_FILENO);
-		// close(pipex.fd[0]);
-		// close(pipex.fd[1]);
-		// if (execve(pipex.fullcmd1, pipex.cmd1, envp) == -1)
-		// 	perror("execve process 1 failed");		
-	}
 	pipex.pid2 = fork();
 	if (pipex.pid2 < 0)
 		return (3);
