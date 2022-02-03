@@ -6,79 +6,73 @@
 #include <time.h>
 #include <pipex.h>
 
-static char *get_paths(char **envp)
+static char	*get_paths(char **envp)
 {
 	while (ft_strncmp("PATH", *envp, 4))
 		envp++;
 	return (*envp + 5);
 }
 
-static void print_array(char **str)
+static void	init_pipex(t_pipex *pipex)
 {
-
-	printf("%s\n", str[0]);
-	while (*str)
-	{
-		printf("%s\n", *str);
-		str++;
-	}
-	printf("%s\n", *str);
-	return ;
+	pipex->paths = NULL;
+	pipex->cmd1 = NULL;
+	pipex->cmd2 = NULL;
+	pipex->fullcmd1 = NULL;
+	pipex->fullcmd2 = NULL;
 }
 
+// static void print_array(char **str)
+// {
+// 	while (*str)
+// 	{
+// 		printf("%s\n", *str);
+// 		str++;
+// 	}
+// 	printf("%s\n", *str);
+// 	return ;
+// }
 
-	// printf("argv[0]: %s		argc: %i\n", argv[0], argc);
 
 int	main(int argc, char **argv, char **envp)
 {
-	// char	*cmd1[] = {"/bin/ls", NULL};
-	// char	*cmd2[] = {"/usr/bin/grep", "pip", NULL};
-	char	**paths;
-	char	*env_paths;
-	// char	*env;
-	char	**cmd1;
-	char	**cmd2;
+	t_pipex	pipex;
 	char	*pathslash;
-	char	*fullcmd;
+	//char	*fullcmd;
 	int		found;
-	// char	*cmd1[] = {"ls", NULL};
-	// char	*cmd2[] = {"grep", "pip", NULL};
 	// int	fd[2];
-	int	pid1;
 	int	i;
 	// int	file;
 	//	int	file2;
-	printf("%s%i\n", argv[0], argc);
-	env_paths = get_paths(envp);
-	paths = ft_split(env_paths, ':');
-	cmd1 = ft_split(argv[1], ' ');
-	cmd2 = ft_split(argv[2], ' ');
-	print_array(cmd1);
+	if (argc == 2)
+		i = 0;
+	init_pipex(&pipex);
+	pipex.paths = ft_split(get_paths(envp), ':');
+	pipex.cmd1 = ft_split(argv[1], ' ');
+	pipex.cmd2 = ft_split(argv[2], ' ');
 	// if (pipe(fd) == -1)
 	// 	return (1);
 	i = 0;
 	found = 0;
 	while (!found)
 	{
-		pathslash = ft_strjoin(paths[i], "/");
-		fullcmd = ft_strjoin(pathslash, cmd1[0]);
+		pathslash = ft_strjoin(pipex.paths[i], "/");
+		pipex.fullcmd1 = ft_strjoin(pathslash, pipex.cmd1[0]);
 		free(pathslash);
-		// printf("%s\n", fullcmd);
-		if(access(fullcmd, F_OK))
+		if (access(pipex.fullcmd1, F_OK))
 			i++;
 		else
 			found = 1;
 	}
-	pid1 = fork();
-	if (pid1 < 0)
+	pipex.pid1 = fork();
+	if (pipex.pid1 < 0)
 		return (2);
-	if (pid1 == 0){	// process 1: ls
+	if (pipex.pid1 == 0){	// process 1: ls
 		// dup2(fd[1], STDOUT_FILENO);
 		// close(fd[0]);
 		// close(fd[1]);
-		if (execve(argv[1], cmd1, paths) == -1)
-			perror("execve process 1 failed");
-			
+		if (execve(pipex.fullcmd1, pipex.cmd1, envp) == -1)
+			perror("execve process 1 failed");		
 	}
 	// int	pid2 = fork();
 	// if (pid2 < 0)

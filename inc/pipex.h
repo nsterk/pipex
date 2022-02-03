@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/03 00:49:23 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/03 14:54:27 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,18 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include <sys/types.h>
+
+typedef struct s_pipex
+{
+	char	**paths;
+	char	**cmd1;
+	char	**cmd2;
+	char	*fullcmd1;
+	char	*fullcmd2;
+	int		pid1;
+	int		pid2;
+	int		fd[2];
+}				t_pipex;
 
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t len);
