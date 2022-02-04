@@ -6,51 +6,13 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/02/04 17:49:36 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/02/04 18:28:10 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
-int	get_command(char *arg, char ***cmd)
-{
-	if (!arg || !(*arg))
-		return (1);
-	*cmd = ft_split(arg, ' ');
-	if (!(*cmd))
-		return (2);
-	return (0);
-}
-
-int	get_fullcmd(char **paths, char **cmd, char **fullcmd)
-{
-	int		i;
-	int		found;
-	char	*pathslash;
-
-	i = 0;
-	found = 0;
-	while (!found && paths[i])
-	{
-		pathslash = ft_strjoin(paths[i], "/");
-		*fullcmd = ft_strjoin(pathslash, cmd[0]);
-		if (!(*fullcmd))
-			return (1);
-		free(pathslash);
-		if (access(*fullcmd, F_OK))
-		{
-			free(*fullcmd);
-			i++;
-		}
-		else
-			found = 1;
-	}
-	if (!found)
-		perror("invalid command");
-	return (0);
-}
-
-int	get_draft(char **paths, t_cmd *cmd)
+int	get_pathname(char **paths, t_cmd *cmd)
 {
 	int		i;
 	int		found;
@@ -78,7 +40,7 @@ int	get_draft(char **paths, t_cmd *cmd)
 	return (0);
 }
 
-int	draft(t_pipex *pipex, char **argv, int out_arg)
+int	get_commands(t_pipex *pipex, char **argv, int out_arg)
 {
 	int	i;
 
@@ -90,9 +52,8 @@ int	draft(t_pipex *pipex, char **argv, int out_arg)
 		pipex->cmd[i - 2].cmdv = ft_split(argv[i], ' ');
 		if (!pipex->cmd[i - 2].cmdv)
 			perror("malloc error splitting args");
-		get_draft(pipex->paths, &pipex->cmd[i - 2]);
+		get_pathname(pipex->paths, &pipex->cmd[i - 2]);
 		i++;
 	}
 	return (0);
 }
-

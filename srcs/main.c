@@ -22,21 +22,14 @@ static char	*get_paths(char **envp)
 	return (*envp + 5);
 }
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 	init_pipex(&pipex, argc);
 	pipex.paths = ft_split(get_paths(envp), ':');
-	draft(&pipex, argv, argc - 1);
-	if (get_command(argv[2], &pipex.cmd1))
-		perror("failed to get cmd1");
-	if (get_command(argv[3], &pipex.cmd2))
-		perror("failed to get cmd2");
+	get_commands(&pipex, argv, argc - 1);
 	if (pipe(pipex.fd) == -1)
-		return (1);
-	get_fullcmd(pipex.paths, pipex.cmd1, &pipex.fullcmd1);
-	get_fullcmd(pipex.paths, pipex.cmd2, &pipex.fullcmd2);
+		perror("Failed to create pipe");
 	pipex.pid1 = fork();
 	if (pipex.pid1 < 0)
 		return (2);

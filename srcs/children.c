@@ -21,7 +21,7 @@ void	first_child(t_pipex *pipex, char *file, char **envp)
 	dup2(pipex->fd[1], STDOUT_FILENO);
 	dup2(pipex->infile, STDIN_FILENO);
 	close_pipe(pipex);
-	if (execve(pipex->fullcmd1, pipex->cmd1, envp) == -1)
+	if (execve(pipex->cmd[0].pathname, pipex->cmd[0].cmdv, envp) == -1)
 		perror("Execve process 1 failed");
 }
 
@@ -34,6 +34,6 @@ void	last_child(t_pipex *pipex, char *file, char **envp)
 	dup2(pipex->outfile, STDOUT_FILENO);
 	close(pipex->outfile);
 	close_pipe(pipex);
-	if (execve(pipex->fullcmd2, pipex->cmd2, envp) == -1)
+	if (execve(pipex->cmd[1].pathname, pipex->cmd[1].cmdv, envp) == -1)
 		perror("execve process 2 failed");
 }
