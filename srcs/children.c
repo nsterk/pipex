@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   children.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
+/*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/02/03 19:00:00 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/02/04 14:50:31 by nsterk        ########   odam.nl         */
+/*   Created: 2022/02/03 19:00:00 by nsterk		   #+#    #+#                 */
+/*   Updated: 2022/02/04 15:11:34 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

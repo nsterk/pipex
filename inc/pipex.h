@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/04 14:46:47 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/02/04 15:44:12 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,16 @@
 # include <unistd.h>
 # include <stdio.h>
 
+typedef struct s_cmd
+{
+	char	**argv;
+	char	*pathname;
+}				t_cmd;
+
 typedef struct s_pipex
 {
 	char	**paths;
+	t_cmd	*cmd;
 	char	**cmd1;
 	char	**cmd2;
 	char	*fullcmd1;
@@ -46,6 +53,6 @@ void	last_child(t_pipex *pipex, char *file, char **envp);
 void	first_child(t_pipex *pipex, char *file, char **envp);
 
 // Pipes
-void    close_pipe(t_pipex *pipex);
+void	close_pipe(t_pipex *pipex);
 
 #endif

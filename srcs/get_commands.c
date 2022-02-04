@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_commands.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
+/*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/02/03 17:58:11 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/04 15:51:27 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,5 @@ int	get_fullcmd(char **paths, char **cmd, char **fullcmd)
 		perror("invalid command");
 	return (0);
 }
+
+// int	draft()
