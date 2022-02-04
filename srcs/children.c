@@ -6,7 +6,7 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 19:00:00 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/02/03 21:50:34 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/04 14:50:31 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ void	first_child(t_pipex *pipex, char *file, char **envp)
 		perror("Failed to open infile");
 	dup2(pipex->fd[1], STDOUT_FILENO);
 	dup2(pipex->infile, STDIN_FILENO);
-	close(pipex->fd[0]);
-	close(pipex->fd[1]);
+	close_pipe(pipex);
 	if (execve(pipex->fullcmd1, pipex->cmd1, envp) == -1)
-		perror("execve process 1 failed");
+		perror("Execve process 1 failed");
 }
 
 void	last_child(t_pipex *pipex, char *file, char **envp)
@@ -34,8 +33,7 @@ void	last_child(t_pipex *pipex, char *file, char **envp)
 	dup2(pipex->fd[0], STDIN_FILENO);
 	dup2(pipex->outfile, STDOUT_FILENO);
 	close(pipex->outfile);
-	close(pipex->fd[0]);
-	close(pipex->fd[1]);
+	close_pipe(pipex);
 	if (execve(pipex->fullcmd2, pipex->cmd2, envp) == -1)
 		perror("execve process 2 failed");
 }

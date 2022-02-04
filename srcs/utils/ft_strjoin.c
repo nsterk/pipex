@@ -6,7 +6,7 @@
 /*   By: nsterk <marvin@codam.nl>                     +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/22 15:39:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/03 14:32:24 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/02/04 14:51:58 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-int		nr_strings(char **strings)
+int	nr_strings(char **strings)
 {
 	int	i;
 

@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	pipex;
 	int	i;
 	init_pipex(&pipex);
-	pipex.paths = ft_split(get_paths(envp), ':');
+	hpipex.paths = ft_split(get_paths(envp), ':');
 	if (get_command(argv[2], &pipex.cmd1))
 		perror("failed to get cmd1");
 	if (get_command(argv[3], &pipex.cmd2))
@@ -44,8 +44,7 @@ int	main(int argc, char **argv, char **envp)
 		return (3);
 	if (pipex.pid2 == 0)
 		last_child(&pipex, argv[argc - 1], envp);
-	close(pipex.fd[0]);
-	close(pipex.fd[1]);
+	close_pipe(&pipex);
 	waitpid(pipex.pid1, NULL, 0);
 	waitpid(pipex.pid2, NULL, 0);
 	return (0);
