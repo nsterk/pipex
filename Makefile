@@ -11,12 +11,11 @@
 # **************************************************************************** #
 
 NAME		=	pipex
-CC			=	gcc
+CC			=	cc
 FLAGS		=	-Wall -Wextra -Werror -g
 
 SRCS		=	srcs/main.c srcs/utils/ft_strjoin.c srcs/utils/ft_split.c \
-				srcs/utils/ft_strcmp.c srcs/utils/ft_strncmp.c \
-				srcs/get_commands.c srcs/children.c
+				srcs/utils/ft_strcmp.c srcs/get_commands.c srcs/children.c
 OBJS		=	$(SRCS:%.c=%.o)
 
 ifdef DEBUG
