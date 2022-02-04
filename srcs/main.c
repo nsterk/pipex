@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	pipex;
 	init_pipex(&pipex, argc);
 	pipex.paths = ft_split(get_paths(envp), ':');
+	draft(&pipex, argv, argc - 1);
 	if (get_command(argv[2], &pipex.cmd1))
 		perror("failed to get cmd1");
 	if (get_command(argv[3], &pipex.cmd2))

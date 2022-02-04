@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/02/04 15:51:27 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/02/04 17:18:33 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,20 @@ int	get_fullcmd(char **paths, char **cmd, char **fullcmd)
 	return (0);
 }
 
-// int	draft()
+int	draft(t_pipex *pipex, char **argv, int out_arg)
+{
+	int	i;
+
+	i = 2;
+	while (i < out_arg)
+	{
+		if (!argv || !argv[i])
+			perror("unable to grab arguments");
+		pipex->cmd[i - 2].cmdv = ft_split(argv[i], ' ');
+		if (!pipex->cmd[i - 2].cmdv)
+			perror("malloc error splitting args");
+		i++;
+	}
+	return (0);
+}
+
