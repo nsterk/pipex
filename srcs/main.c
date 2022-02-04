@@ -1,4 +1,3 @@
-#include <fcntl.h>
 #include <sys/wait.h>
 #include <time.h>
 #include <pipex.h>
@@ -12,7 +11,7 @@ static void	init_pipex(t_pipex *pipex, int argc)
 	pipex->fullcmd2 = NULL;
 	pipex->cmd = malloc(sizeof(t_cmd) * (argc - 3));
 	if (!pipex->cmd)
-		perror("malloc error");
+		exit_pipex(pipex, -1);
 }
 
 static char	*get_paths(char **envp)
@@ -25,6 +24,8 @@ static char	*get_paths(char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
+	if (argc != 5)
+		exit_pipex(&pipex, -2);
 	init_pipex(&pipex, argc);
 	pipex.paths = ft_split(get_paths(envp), ':');
 	get_commands(&pipex, argv, argc - 1);

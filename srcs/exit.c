@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strcmp.c                                        :+:    :+:            */
+/*   exit.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: nsterk <marvin@codam.nl>                     +#+                     */
+/*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/21 17:08:30 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/03 01:41:14 by nsterk        ########   odam.nl         */
+/*   Created: 2022/02/04 19:47:04 by nsterk        #+#    #+#                 */
+/*   Updated: 2022/02/04 21:06:33 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
+#include <pipex.h>
 
-	i = 0;
-	while (s1[i] != '\0' || s2[i] != '\0')
-	{
-		if (s1[i] == s2[i])
-			i++;
-		else
-			return (s1[i] - s2[i]);
-	}
-	return (0);
+void	exit_pipex(t_pipex *pipex, int status)
+{
+	if (status == -2)
+		perror("Incorrect nr of arguments");
+	else if (status == -1)
+		perror("Malloc failure in init");
+	exit(0);
 }

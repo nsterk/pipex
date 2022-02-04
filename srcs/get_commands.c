@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/02/04 18:28:10 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/02/04 18:39:15 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	get_pathname(char **paths, t_cmd *cmd)
 	{
 		pathslash = ft_strjoin(paths[i], "/");
 		cmd->pathname = ft_strjoin(pathslash, cmd->cmdv[0]);
+		free(pathslash);
 		if (!cmd->pathname)
 			return (1);
-		free(pathslash);
 		if (access(cmd->pathname, F_OK))
 		{
 			free(cmd->pathname);
