@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/04 20:31:11 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/02/12 18:08:50 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,12 @@ typedef struct s_pipex
 {
 	char	**paths;
 	t_cmd	*cmd;
-	char	**cmd1;
-	char	**cmd2;
-	char	*fullcmd1;
-	char	*fullcmd2;
-	int		pid1;
-	int		pid2;
+	int		*pid;
 	int		infile;
 	int		outfile;
-	int		fd[2];
+	int		**fd;
+	int		nr_children;
+	int		current_child;
 }				t_pipex;
 
 int		ft_strcmp(char *s1, char *s2);
@@ -51,10 +48,17 @@ int		get_pathname(char **paths, t_cmd *cmd);
 
 // Child processes
 void	last_child(t_pipex *pipex, char *file, char **envp);
+void	middle_children(t_pipex *pipex, char **envp);
 void	first_child(t_pipex *pipex, char *file, char **envp);
+int		handle_the_children(t_pipex *pipex, char **argv, char **envp);
+
+// TESTY processes
+void	last_child_test(t_pipex *pipex, char *file, char **envp);
+// void	first_child_test(t_pipex *pipex, char *file, char **envp, int argc);
+void	wait_for_children(t_pipex *pipex);
 
 // Pipes
-void	close_pipe(t_pipex *pipex);
+void	close_pipe(int *fd);
 
 void	exit_pipex(t_pipex *pipex, int status);
 #endif

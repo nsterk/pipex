@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/01 14:53:28 by nsterk        #+#    #+#                  #
-#    Updated: 2022/02/04 20:31:19 by nsterk        ########   odam.nl          #
+#    Updated: 2022/02/10 15:18:41 by naomisterk    ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,20 @@ NAME		=	pipex
 CC			=	cc
 FLAGS		=	-Wall -Wextra -Werror
 
-SRCS		=	srcs/main.c srcs/utils.c srcs/ft_split.c \
-				srcs/get_commands.c srcs/children.c \
+SHARED_SRCS	=	srcs/utils.c srcs/ft_split.c 
+MAIN_SRCS	=	srcs/main.c srcs/get_commands.c srcs/children.c \
 				srcs/pipes.c srcs/exit.c
-OBJS		=	$(SRCS:%.c=%.o)
+BONUS_SRCS	=	srcs/main_bonus.c srcs/get_commands_bonus.c \
+				srcs/pipes_bonus.c srcs/children_bonus.c \
+				srcs/exit_bonus.c
+
+ifdef bonus
+SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+else
+SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+endif
+
+OBJS	=	$(SRCS:%.c=%.o)
 
 ifdef DEBUG
 FLAGS	+= -g

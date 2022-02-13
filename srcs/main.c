@@ -5,10 +5,6 @@
 static void	init_pipex(t_pipex *pipex, int argc)
 {
 	pipex->paths = NULL;
-	pipex->cmd1 = NULL;
-	pipex->cmd2 = NULL;
-	pipex->fullcmd1 = NULL;
-	pipex->fullcmd2 = NULL;
 	pipex->cmd = malloc(sizeof(t_cmd) * (argc - 3));
 	if (!pipex->cmd)
 		exit_pipex(pipex, -1);
@@ -24,10 +20,13 @@ static char	*get_paths(char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
+
 	if (argc != 5)
 		exit_pipex(&pipex, -2);
 	init_pipex(&pipex, argc);
 	pipex.paths = ft_split(get_paths(envp), ':');
+	if (!pipex.paths)
+		exit_pipex(&pipex, -3);
 	get_commands(&pipex, argv, argc - 1);
 	if (pipe(pipex.fd) == -1)
 		perror("Failed to create pipe");

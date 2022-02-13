@@ -1,0 +1,114 @@
+3,8d2
+< cs/main_bonus.c srcs/get_commands_bonus.c \
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+1d0
+< SHARED_SRCS	=	srcs/utils.c srcs/ft_split.c 
+4,8d2
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+1d0
+< SHARED_SRCS	=	srcs/utils.c srcs/ft_split.c 
+4,8d2
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+1d0
+< SHARED_SRCS	=	srcs/utils.c srcs/ft_split.c 
+4,8d2
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+3,8d2
+< cs/main_bonus.c srcs/get_commands_bonus.c \
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+1d0
+< SHARED_SRCS	=	srcs/utils.c srcs/ft_split.c 
+4,8d2
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+3,8d2
+< cs/main_bonus.c srcs/get_commands_bonus.c \
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+1d0
+< SHARED_SRCS	=	srcs/utils.c srcs/ft_split.c 
+4,8d2
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+3,8d2
+< cs/main_bonus.c srcs/get_commands_bonus.c \
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+1d0
+< SHARED_SRCS	=	srcs/utils.c srcs/ft_split.c 
+4,8d2
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+3,8d2
+< cs/main_bonus.c srcs/get_commands_bonus.c \
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+1d0
+< SHARED_SRCS	=	srcs/utils.c srcs/ft_split.c 
+4,8d2
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+1d0
+< SHARED_SRCS	=	srcs/utils.c srcs/ft_split.c 
+4,8d2
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+1d0
+< SHARED_SRCS	=	srcs/utils.c srcs/ft_split.c 
+4,8d2
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
+3,8d2
+< cs/main_bonus.c srcs/get_commands_bonus.c \
+< SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
+< SRCS		=	$(SHARED_SRCS) $(MAIN_SRCS)
+< OBJS	=	$(SRCS:%.c=%.o)
+< $(NAME): $(SRCS)
+< 	$(CC) $(SRCS) $(FLAGS) -Iinc -o pipex
