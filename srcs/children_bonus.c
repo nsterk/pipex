@@ -28,11 +28,15 @@ void	first_child(t_pipex *pipex, char *file, char **envp)
 
 void	middle_children(t_pipex *pipex, char **envp)
 {
+	int	i;
+
+	i = 0;
 	printf("current child: %i\n", pipex->current_child);
 	dup2(pipex->fd[pipex->current_child - 1][0], STDIN_FILENO);
 	dup2(pipex->fd[pipex->current_child][1], STDOUT_FILENO);
-	close_pipe(pipex->fd[pipex->current_child - 1]);
-	close_pipe(pipex->fd[pipex->current_child]);
+	// close_pipe(pipex->fd[pipex->current_child - 1]);
+	// close_pipe(pipex->fd[pipex->current_child]);
+	close_pipes(pipex);
 	if (execve(pipex->cmd[pipex->current_child].pathname, \
 		pipex->cmd[pipex->current_child].cmdv, envp) == -1)
 		perror("execve in one of middle children");
@@ -64,9 +68,10 @@ void	last_child_test(t_pipex *pipex, char *file, char **envp)
 		dup2(pipex->fd[0][0], STDIN_FILENO);
 	dup2(pipex->outfile, STDOUT_FILENO);
 	close(pipex->outfile);
-	if (pipex->nr_children > 2)
-		close_pipe(pipex->fd[pipex->nr_children - 2]);
-	close_pipe(pipex->fd[0]);
+	// if (pipex->nr_children > 2)
+	// 	close_pipe(pipex->fd[pipex->nr_children - 2]);
+	// close_pipe(pipex->fd[0]);
+	close_pipes(pipex);
 	if (execve(pipex->cmd[pipex->current_child].pathname, pipex->cmd[pipex->current_child].cmdv, envp) == -1)
 		perror("execve process 2 failed");
 }
