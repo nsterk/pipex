@@ -7,7 +7,7 @@ make DEBUG=1 bonus=1 re
 
 if diff outfile.txt outfile2.txt;
 then
-    echo -e "1:	\033[32m[YOU ARE AMAZING]\033[0m"
+    echo -e "1:	\033[32m[OK]\033[0m"
 else
     echo -e "1:	\033[31m[KO]\033[0m"
     diff outfile.txt outfile2.txt >> diff.txt
@@ -22,7 +22,7 @@ rm outfile.txt outfile2.txt
 
 if diff outfile.txt outfile2.txt;
 then
-    echo -e "2:	\033[32m[YOU ARE AMAZING]\033[0m"
+    echo -e "2:	\033[32m[OK]\033[0m"
 else
     echo -e "2:	\033[31m[KO]\033[0m"
     diff outfile.txt outfile2.txt >> diff.txt
@@ -37,10 +37,44 @@ rm outfile.txt outfile2.txt
 
 if diff outfile.txt outfile2.txt;
 then
-    echo -e "3:	\033[32m[YOU ARE AMAZING]\033[0m"
+    echo -e "3:	\033[32m[OK]\033[0m"
 else
     echo -e "3:	\033[31m[KO]\033[0m"
     diff outfile.txt outfile2.txt >> diff.txt
 fi
 
+rm outfile.txt outfile2.txt
+
+#Test 4: checking 4 pipes
+
+./pipex Makefile "cat" "grep SRCS" "grep main" "grep c" "wc" outfile.txt
+< Makefile cat | grep SRCS | grep main | grep c | wc > outfile2.txt
+
+if diff outfile.txt outfile2.txt;
+then
+    echo -e "4:	\033[32m[OK]\033[0m"
+else
+    echo -e "4:	\033[31m[KO]\033[0m"
+    diff outfile.txt outfile2.txt >> diff.txt
+fi
+
+open outfile.txt outfile2.txt
+sleep 5
+rm outfile.txt outfile2.txt
+
+#Test 5: checking 5 pipes
+
+./pipex omgbash.txt "cat" "cat -e" "grep file" "grep user" "grep c" "wc" outfile.txt
+< omgbash.txt cat | cat -e | grep file | grep user | grep c | wc > outfile2.txt
+
+if diff outfile.txt outfile2.txt;
+then
+    echo -e "5:	\033[32m[OK]\033[0m"
+else
+    echo -e "5:	\033[31m[KO]\033[0m"
+    diff outfile.txt outfile2.txt >> diff.txt
+fi
+
+open outfile.txt outfile2.txt
+sleep 5
 rm outfile.txt outfile2.txt

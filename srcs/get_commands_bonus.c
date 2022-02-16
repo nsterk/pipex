@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_commands.c                                     :+:    :+:            */
+/*   get_commands_bonus.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/02/10 13:50:52 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/16 17:47:03 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ int	get_commands(t_pipex *pipex, char **argv, int out_arg)
 	while (i < out_arg)
 	{
 		if (!argv || !argv[i])
-			perror("unable to grab arguments");
+			exit_pipex(pipex, -1, "unable to grab arguments");
 		pipex->cmd[i - 2].cmdv = ft_split(argv[i], ' ');
 		if (!pipex->cmd[i - 2].cmdv)
-			exit_pipex(pipex, -4);
+			exit_pipex(pipex, -4, "Malloc failure");
 		get_pathname(pipex->paths, &pipex->cmd[i - 2]);
 		i++;
 	}

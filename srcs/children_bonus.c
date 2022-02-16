@@ -28,14 +28,8 @@ void	first_child(t_pipex *pipex, char *file, char **envp)
 
 void	middle_children(t_pipex *pipex, char **envp)
 {
-	int	i;
-
-	i = 0;
-	printf("current child: %i\n", pipex->current_child);
 	dup2(pipex->fd[pipex->current_child - 1][0], STDIN_FILENO);
 	dup2(pipex->fd[pipex->current_child][1], STDOUT_FILENO);
-	// close_pipe(pipex->fd[pipex->current_child - 1]);
-	// close_pipe(pipex->fd[pipex->current_child]);
 	close_pipes(pipex);
 	if (execve(pipex->cmd[pipex->current_child].pathname, \
 		pipex->cmd[pipex->current_child].cmdv, envp) == -1)
@@ -60,17 +54,12 @@ void	last_child_test(t_pipex *pipex, char *file, char **envp)
 	pipex->outfile = open(file, O_WRONLY | O_CREAT, 0777);
 	if (pipex->outfile == -1)
 		perror("Failed to open outfile");
-	printf("fd[0]: %i fd[1]: %i\n", pipex->fd[0][0], pipex->fd[0][1]);
-	printf("current child: %i\n", pipex->current_child);
 	if (pipex->nr_children > 2)
 		dup2(pipex->fd[pipex->nr_children - 2][0], STDIN_FILENO);
 	else
 		dup2(pipex->fd[0][0], STDIN_FILENO);
 	dup2(pipex->outfile, STDOUT_FILENO);
 	close(pipex->outfile);
-	// if (pipex->nr_children > 2)
-	// 	close_pipe(pipex->fd[pipex->nr_children - 2]);
-	// close_pipe(pipex->fd[0]);
 	close_pipes(pipex);
 	if (execve(pipex->cmd[pipex->current_child].pathname, pipex->cmd[pipex->current_child].cmdv, envp) == -1)
 		perror("execve process 2 failed");
@@ -108,13 +97,10 @@ void	wait_for_children(t_pipex *pipex)
 {
 	int	i;
 
-	i = 1;
-	waitpid(pipex->pid[0], NULL, 0);
-	// printf("%i\n", pipex->child);
-	while (i < (pipex->nr_children - 1))
+	i = 0;
+	while (i < pipex->nr_children)
 	{
 		waitpid(pipex->pid[i], NULL, 0);
 		i++;
 	}
-	waitpid(pipex->pid[pipex->nr_children - 1], NULL, 0);
 }

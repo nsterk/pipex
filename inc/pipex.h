@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/14 16:59:14 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/16 17:36:54 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void	wait_for_children(t_pipex *pipex);
 void	close_pipe(int *fd);
 void	close_pipes(t_pipex *pipex);
 
-void	exit_pipex(t_pipex *pipex, int status);
+void	exit_pipex(t_pipex *pipex, int status, char *message);
 #endif
