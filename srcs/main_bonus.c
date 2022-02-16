@@ -48,20 +48,9 @@ int	main(int argc, char **argv, char **envp)
 	if (!pipex.paths)
 		exit_pipex(&pipex, -3, "Malloc failure getting env paths");
 	get_commands(&pipex, argv, argc - 1);
-	while (pipey < pipex.nr_children - 1)
-	{
-		if (pipe(pipex.fd[pipey]) == -1)
-			exit_pipex(&pipex, 1, "Failed to create pipe");
-		pipey++;
-	}
+	open_pipes(&pipex);
 	handle_the_children(&pipex, argv, envp);
 	close_pipes(&pipex);
-	// pipey = 0;
-	// while (pipey <= pipex.nr_children - 2)
-	// {
-	// 	close_pipe(pipex.fd[pipey]);
-	// 	pipey++;
-	// }
 	wait_for_children(&pipex);
 	return (0);
 }

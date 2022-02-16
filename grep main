@@ -1,2 +1,0 @@
-MAIN_SRCS	=	srcs/main.c srcs/get_commands.c srcs/children.c \
-BONUS_SRCS	=	srcs/main_bonus.c srcs/get_commands_bonus.c \
