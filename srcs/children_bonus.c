@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex.h>
+#include <pipex_bonus.h>
 #include <fcntl.h>
 
 void	first_child(t_pipex *pipex, char *file, char **envp)
@@ -23,7 +23,7 @@ void	first_child(t_pipex *pipex, char *file, char **envp)
 	close_pipe(pipex->fd[0]);
 	close(pipex->infile);
 	if (execve(pipex->cmd[0].pathname, pipex->cmd[0].cmdv, envp) == -1)
-		perror("Execve process 1 failed");
+		exit_pipex(pipex, 2, "Failed to execute first command");
 }
 
 void	middle_children(t_pipex *pipex, char **envp)
@@ -33,27 +33,14 @@ void	middle_children(t_pipex *pipex, char **envp)
 	close_pipes(pipex);
 	if (execve(pipex->cmd[pipex->current_child].pathname, \
 		pipex->cmd[pipex->current_child].cmdv, envp) == -1)
-		perror("execve in one of middle children");
+		exit_pipex(pipex, 2, "Failed to execute one of middle commands");
 }
 
-// void	last_child_test(t_pipex *pipex, char *file, char **envp)
-// {
-// 	pipex->outfile = open(file, O_WRONLY | O_CREAT, 0777);
-// 	if (pipex->outfile == -1)
-// 		perror("Failed to open outfile");
-// 	dup2(pipex->fd[pipex->nr_children - 1][0], STDIN_FILENO);
-// 	dup2(pipex->outfile, STDOUT_FILENO);
-// 	close(pipex->outfile);
-// 	close_pipe(pipex->fd[pipex->nr_children - 1]);
-// 	if (execve(pipex->cmd[1].pathname, pipex->cmd[1].cmdv, envp) == -1)
-// 		perror("execve process 2 failed");
-// }
-
-void	last_child_test(t_pipex *pipex, char *file, char **envp)
+void	last_child(t_pipex *pipex, char *file, char **envp)
 {
 	pipex->outfile = open(file, O_WRONLY | O_CREAT, 0777);
 	if (pipex->outfile == -1)
-		perror("Failed to open outfile");
+		exit_pipex(pipex, 2, "Failed to open outfile");
 	if (pipex->nr_children > 2)
 		dup2(pipex->fd[pipex->nr_children - 2][0], STDIN_FILENO);
 	else
@@ -61,36 +48,32 @@ void	last_child_test(t_pipex *pipex, char *file, char **envp)
 	dup2(pipex->outfile, STDOUT_FILENO);
 	close(pipex->outfile);
 	close_pipes(pipex);
-	if (execve(pipex->cmd[pipex->current_child].pathname, pipex->cmd[pipex->current_child].cmdv, envp) == -1)
-		perror("execve process 2 failed");
+	if (execve(pipex->cmd[pipex->current_child].pathname, \
+		pipex->cmd[pipex->current_child].cmdv, envp) == -1)
+		exit_pipex(pipex, 2, "Failed to execute last command");
 }
 
-int	handle_the_children(t_pipex *pipex, char **argv, char **envp)
+void	handle_the_children(t_pipex *pipex, char **argv, char **envp)
 {
-	int	i;
-
-	i = 1;
 	pipex->pid[0] = fork();
 	if (pipex->pid[0] < 0)
-		return (2);
+		exit_pipex(pipex, 1, "Failed to fork process");
 	if (pipex->pid[0] == 0)
 		first_child(pipex, argv[1], envp);
-	while (i < (pipex->nr_children - 1))
+	while (pipex->current_child < (pipex->nr_children - 1))
 	{
-		pipex->pid[i] = fork();
-		if (pipex->pid[i] < 0)
-			return (3);
-		if (pipex->pid[i] == 0)
+		pipex->pid[pipex->current_child] = fork();
+		if (pipex->pid[pipex->current_child] < 0)
+			exit_pipex(pipex, 1, "Failed to fork process");
+		if (pipex->pid[pipex->current_child] == 0)
 			middle_children(pipex, envp);
 		pipex->current_child++;
-		i++;
 	}
-	pipex->pid[pipex->nr_children - 1] = fork();
-	if (pipex->pid[pipex->nr_children - 1] < 0)
-		return (3);
-	if (pipex->pid[pipex->nr_children - 1] == 0)
-		last_child_test(pipex, argv[pipex->nr_children + 2], envp);
-	return (0);
+	pipex->pid[pipex->current_child] = fork();
+	if (pipex->pid[pipex->current_child] < 0)
+		exit_pipex(pipex, 1, "Failed to fork process");
+	if (pipex->pid[pipex->current_child] == 0)
+		last_child(pipex, argv[pipex->nr_children + 2], envp);
 }
 
 void	wait_for_children(t_pipex *pipex)

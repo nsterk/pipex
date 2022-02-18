@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex.h                                            :+:    :+:            */
+/*   pipex_bonus.h                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/16 19:11:24 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/18 17:07:56 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -44,16 +44,13 @@ char	**ft_split(char const *s, char c);
 int		ft_strlcpy(char *dest, const char *src, int size);
 
 int		get_commands(t_pipex *pipex, char **argv, int out_arg);
-int		get_pathname(char **paths, t_cmd *cmd);
+// int		get_pathname(char **paths, t_cmd *cmd);
 
 // Child processes
 void	last_child(t_pipex *pipex, char *file, char **envp);
 void	middle_children(t_pipex *pipex, char **envp);
 void	first_child(t_pipex *pipex, char *file, char **envp);
-int		handle_the_children(t_pipex *pipex, char **argv, char **envp);
-
-// TESTY processes
-void	last_child_test(t_pipex *pipex, char *file, char **envp);
+void	handle_the_children(t_pipex *pipex, char **argv, char **envp);
 void	wait_for_children(t_pipex *pipex);
 
 // Pipes

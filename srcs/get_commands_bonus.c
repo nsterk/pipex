@@ -6,43 +6,66 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/02/16 17:47:03 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/18 17:09:00 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex.h>
+#include <pipex_bonus.h>
 
-int	get_pathname(char **paths, t_cmd *cmd)
+static int	try_pathname(char *path, t_cmd *cmd)
 {
-	int		i;
-	int		found;
 	char	*pathslash;
 
-	i = 0;
-	found = 0;
-	while (!found && paths[i])
+	pathslash = ft_strjoin(path, "/");
+	if (!pathslash)
+		return (-1);
+	cmd->pathname = ft_strjoin(pathslash, cmd->cmdv[0]);
+	free(pathslash);
+	if (!cmd->pathname)
+		return (-1);
+	if (access(cmd->pathname, F_OK))
 	{
-		pathslash = ft_strjoin(paths[i], "/");
-		cmd->pathname = ft_strjoin(pathslash, cmd->cmdv[0]);
-		free(pathslash);
-		if (!cmd->pathname)
-			return (1);
-		if (access(cmd->pathname, F_OK))
-		{
-			free(cmd->pathname);
-			i++;
-		}
-		else
-			found = 1;
+		free(cmd->pathname);
+		return (1);
 	}
-	if (!found)
-		perror("invalid command");
-	return (0);
+	else
+		return (0);
+}
+
+static int	get_pathname(char **paths, t_cmd *cmd)
+{
+	int		i;
+	int		not_found;
+	// char	*pathslash;
+
+	i = 0;
+	not_found = 1;
+	while (not_found > 0 && paths[i])
+	{
+		not_found = try_pathname(paths[i], cmd);
+		i++;
+		// pathslash = ft_strjoin(paths[i], "/");
+		// if (!pathslash)
+		// 	return (1);
+		// cmd->pathname = ft_strjoin(pathslash, cmd->cmdv[0]);
+		// free(pathslash);
+		// if (!cmd->pathname)
+		// 	return (1);
+		// if (access(cmd->pathname, F_OK))
+		// {
+		// 	free(cmd->pathname);
+		// 	i++;
+		// }
+		// else
+		// 	not_found = 0;
+	}
+	return (not_found);
 }
 
 int	get_commands(t_pipex *pipex, char **argv, int out_arg)
 {
 	int	i;
+	int	found;
 
 	i = 2;
 	while (i < out_arg)
@@ -52,7 +75,11 @@ int	get_commands(t_pipex *pipex, char **argv, int out_arg)
 		pipex->cmd[i - 2].cmdv = ft_split(argv[i], ' ');
 		if (!pipex->cmd[i - 2].cmdv)
 			exit_pipex(pipex, -4, "Malloc failure");
-		get_pathname(pipex->paths, &pipex->cmd[i - 2]);
+		found = get_pathname(pipex->paths, &pipex->cmd[i - 2]);
+		if (found < 0)
+			exit_pipex(pipex, 1, "command not found");
+		else if (found > 0)
+			exit_pipex(pipex, -4, "Malloc failure");
 		i++;
 	}
 	return (0);

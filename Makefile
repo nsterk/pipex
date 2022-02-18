@@ -6,11 +6,16 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/01 14:53:28 by nsterk        #+#    #+#                  #
-#    Updated: 2022/02/10 15:18:41 by naomisterk    ########   odam.nl          #
+#    Updated: 2022/02/18 16:32:51 by naomisterk    ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
+ifdef bonus
+NAME		=	pipex_bonus
+else
 NAME		=	pipex
+endif
+
 CC			=	cc
 FLAGS		=	-Wall -Wextra -Werror
 

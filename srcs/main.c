@@ -22,11 +22,11 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	pipex;
 
 	if (argc != 5)
-		exit_pipex(&pipex, -2);
+		exit_pipex(&pipex, -2, "Incorrect nr of arguments");
 	init_pipex(&pipex, argc);
 	pipex.paths = ft_split(get_paths(envp), ':');
 	if (!pipex.paths)
-		exit_pipex(&pipex, -3);
+		exit_pipex(&pipex, -3, "Malloc failure");
 	get_commands(&pipex, argv, argc - 1);
 	if (pipe(pipex.fd) == -1)
 		perror("Failed to create pipe");
