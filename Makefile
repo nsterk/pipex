@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/01 14:53:28 by nsterk        #+#    #+#                  #
-#    Updated: 2022/02/18 16:32:51 by naomisterk    ########   odam.nl          #
+#    Updated: 2022/02/19 10:22:58 by naomisterk    ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ endif
 
 OBJS	=	$(SRCS:%.c=%.o)
 
-ifdef DEBUG
+ifdef debug
 FLAGS	+= -g
 endif
 

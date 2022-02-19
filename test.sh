@@ -1,5 +1,5 @@
 #! /bin/sh
-make DEBUG=1 re
+make debug=1 re
 
 # Test 1:
 ./pipex Makefile "cat" "grep srcs" outfile.txt

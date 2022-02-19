@@ -2,7 +2,7 @@
 
 _compilation()
 {
-	make DEBUG=1 bonus=1 re
+	make debug=1 bonus=1 re
 }
 
 _mandatory()

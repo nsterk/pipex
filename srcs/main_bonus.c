@@ -24,16 +24,16 @@ static void	init_pipex(t_pipex *pipex, int argc)
 	}
 }
 
-static void	get_paths(t_pipex *pipex, char **envp, char c)
-{
-	while (ft_strncmp("PATH", *envp, 4))
-		envp++;
-	pipex->paths = ft_split(*envp + 5, c);
-	if (!pipex->paths)
-		exit_pipex(pipex, -3, "Malloc failure getting env paths");
-	// return (ft_split(*envp + 5, c));
-	// return (*envp + 5);
-}
+// static void	get_paths(t_pipex *pipex, char **envp, char c)
+// {
+// 	while (ft_strncmp("PATH", *envp, 4))
+// 		envp++;
+// 	pipex->paths = ft_split(*envp + 5, c);
+// 	if (!pipex->paths)
+// 		exit_pipex(pipex, -3, "Malloc failure getting env paths");
+// 	// return (ft_split(*envp + 5, c));
+// 	// return (*envp + 5);
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -42,11 +42,12 @@ int	main(int argc, char **argv, char **envp)
 	if (argc < 5)
 		exit_pipex(&pipex, -2, "Too few arguments supplied");
 	init_pipex(&pipex, argc);
-	get_paths(&pipex, envp, ':');
+	// get_paths(&pipex, envp, ':');
 	// pipex.paths = ft_split(get_paths(envp), ':');
 	// if (!pipex.paths)
 	// 	exit_pipex(&pipex, -3, "Malloc failure getting env paths");
-	get_commands(&pipex, argv, argc - 1);
+	get_commands(&pipex, argv, argc - 1, envp);
+	// free_strings(pipex);
 	open_pipes(&pipex);
 	handle_the_children(&pipex, argv, envp);
 	close_pipes(&pipex);
