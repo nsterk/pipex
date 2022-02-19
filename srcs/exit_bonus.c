@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 19:47:04 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/19 11:10:44 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/19 18:47:30 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,28 @@ void	free_strings(char **strings, int len)
 	free(strings);
 }
 
+void	free_ints(int **ints, int len)
+{
+	while(len)
+	{
+		len--;
+		free(ints[len]);
+	}
+	free(ints);
+}
+
+void	free_cmd(t_cmd *cmd)
+{
+	free_strings(cmd->cmdv, nr_strings(cmd->cmdv));
+	free(cmd->pathname);
+}
+
 void	exit_pipex(t_pipex *pipex, int status, char *message)
 {
+	// if (status > 0)
+	// {
+		
+	// }
 	if (status == -3) // free pipex->cmnd **
 	{
 		perror(message);

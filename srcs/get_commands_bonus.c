@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/02/19 11:09:37 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/19 15:13:15 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	get_paths(t_pipex *pipex, char **envp, char c)
 	pipex->paths = ft_split(*envp + 5, c);
 	if (!pipex->paths)
 		exit_pipex(pipex, -3, "Malloc failure getting env paths");
-	// return (ft_split(*envp + 5, c));
-	// return (*envp + 5);
 }
 
 int	get_commands(t_pipex *pipex, char **argv, int out_arg, char **envp)

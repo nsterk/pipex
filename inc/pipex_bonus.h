@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/19 11:07:27 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/19 18:42:00 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	middle_children(t_pipex *pipex, char **envp);
 void	first_child(t_pipex *pipex, char *file, char **envp);
 void	handle_the_children(t_pipex *pipex, char **argv, char **envp);
 void	wait_for_children(t_pipex *pipex);
+void	fork_process(t_pipex *pipex);
 
 // Pipes
 void	close_pipe(int *fd);
@@ -60,6 +61,8 @@ void	close_pipes(t_pipex *pipex);
 void	open_pipes(t_pipex *pipex);
 
 void	exit_pipex(t_pipex *pipex, int status, char *message);
+void	free_cmd(t_cmd *cmd);
 void	free_strings(char **strings, int len);
+void	free_ints(int **ints, int len);
 int		nr_strings(char **strings);
 #endif

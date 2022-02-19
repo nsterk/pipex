@@ -52,38 +52,3 @@ void	last_child(t_pipex *pipex, char *file, char **envp)
 		pipex->cmd[pipex->current_child].cmdv, envp) == -1)
 		exit_pipex(pipex, 2, "Failed to execute last command");
 }
-
-void	handle_the_children(t_pipex *pipex, char **argv, char **envp)
-{
-	pipex->pid[0] = fork();
-	if (pipex->pid[0] < 0)
-		exit_pipex(pipex, 1, "Failed to fork process");
-	if (pipex->pid[0] == 0)
-		first_child(pipex, argv[1], envp);
-	while (pipex->current_child < (pipex->nr_children - 1))
-	{
-		pipex->pid[pipex->current_child] = fork();
-		if (pipex->pid[pipex->current_child] < 0)
-			exit_pipex(pipex, 1, "Failed to fork process");
-		if (pipex->pid[pipex->current_child] == 0)
-			middle_children(pipex, envp);
-		pipex->current_child++;
-	}
-	pipex->pid[pipex->current_child] = fork();
-	if (pipex->pid[pipex->current_child] < 0)
-		exit_pipex(pipex, 1, "Failed to fork process");
-	if (pipex->pid[pipex->current_child] == 0)
-		last_child(pipex, argv[pipex->nr_children + 2], envp);
-}
-
-void	wait_for_children(t_pipex *pipex)
-{
-	int	i;
-
-	i = 0;
-	while (i < pipex->nr_children)
-	{
-		waitpid(pipex->pid[i], NULL, 0);
-		i++;
-	}
-}

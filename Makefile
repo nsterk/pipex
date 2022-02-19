@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/01 14:53:28 by nsterk        #+#    #+#                  #
-#    Updated: 2022/02/19 10:22:58 by naomisterk    ########   odam.nl          #
+#    Updated: 2022/02/19 17:54:48 by naomisterk    ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ MAIN_SRCS	=	srcs/main.c srcs/get_commands.c srcs/children.c \
 				srcs/pipes.c srcs/exit.c
 BONUS_SRCS	=	srcs/main_bonus.c srcs/get_commands_bonus.c \
 				srcs/pipes_bonus.c srcs/children_bonus.c \
-				srcs/exit_bonus.c
+				srcs/exit_bonus.c srcs/process_management.c
 
 ifdef bonus
 SRCS		=	$(SHARED_SRCS) $(BONUS_SRCS)
