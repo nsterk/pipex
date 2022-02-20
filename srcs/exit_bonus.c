@@ -6,11 +6,22 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 19:47:04 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/19 18:47:30 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/19 20:46:43 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex_bonus.h>
+
+/*
+
+Als status -2 is betekent dat dat er een failure was in get_paths and in that case
+Im ust free: 
+
+free(pipex->fid)
+free_ints(pipex->fd, pipex->nr_children - 1)
+free(pipex->fd)
+free(pipex->cmd)
+*/
 
 void	free_strings(char **strings, int len)
 {
@@ -44,6 +55,7 @@ void	exit_pipex(t_pipex *pipex, int status, char *message)
 	// {
 		
 	// }
+	
 	if (status == -3) // free pipex->cmnd **
 	{
 		perror(message);
@@ -51,6 +63,7 @@ void	exit_pipex(t_pipex *pipex, int status, char *message)
 	}
 	else if (status == -4)
 		perror("Malloc error separating arguments and flags"); // free pipex->cmnd->cmdv  **get_commands
-	perror(message);
+	if (status)
+		perror(message);
 	exit(0);
 }

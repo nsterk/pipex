@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/02/19 15:13:15 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/20 09:54:19 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,36 @@ void	get_paths(t_pipex *pipex, char **envp, char c)
 		envp++;
 	pipex->paths = ft_split(*envp + 5, c);
 	if (!pipex->paths)
-		exit_pipex(pipex, -3, "Malloc failure getting env paths");
+		exit_pipex(pipex, -2, "Malloc failure getting env paths");
 }
 
-int	get_commands(t_pipex *pipex, char **argv, int out_arg, char **envp)
+/*
+Ik kan pipex->current child gebruiken als i. Als ik dan een error status van -1 heb weet ik waar 
+het fout is gegaan in get_pathname en dus welke cmdv en pathnames ik moet freeen.
+
+*/
+
+int	get_commands(t_pipex *pipex, char **argv, char **envp)
 {
-	int	i;
 	int	found;
 
-	i = 0;
 	get_paths(pipex, envp, ':');
-	while (i < (out_arg - 2))
+	while (pipex->current_child < pipex->nr_children)
 	{
-		if (!argv || !argv[i + 2])
+		if (!argv || !argv[pipex->current_child + 2])
 			exit_pipex(pipex, -1, "unable to grab arguments");
-		pipex->cmd[i].cmdv = ft_split(argv[i + 2], ' ');
-		if (!pipex->cmd[i].cmdv)
+		pipex->cmd[pipex->current_child].cmdv = \
+		ft_split(argv[pipex->current_child + 2], ' ');
+		if (!pipex->cmd[pipex->current_child].cmdv)
 			exit_pipex(pipex, -4, "Malloc failure");
-		found = get_pathname(pipex->paths, &pipex->cmd[i]);
+		found = get_pathname(pipex->paths, &pipex->cmd[pipex->current_child]);
 		if (found > 0)
 			exit_pipex(pipex, 1, "command not found");
 		else if (found < 0)
 			exit_pipex(pipex, -4, "Malloc failure");
-		i++;
+		pipex->current_child++;
 	}
+	pipex->current_child = 0;
 	free_strings(pipex->paths, nr_strings(pipex->paths));
 	return (0);
 }

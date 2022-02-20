@@ -10,7 +10,6 @@ _mandatory()
 	echo "\n\033[0;36m****************** MANDATORY PART ******************\033[0m\n"
 
 	sleep 0.2
-
 	# Test 1: checking if even handling 1 pipe works
 	./pipex Makefile "cat" "grep main" outfile.txt
 	< Makefile cat | grep main > outfile2.txt

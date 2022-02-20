@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/19 18:42:00 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/20 09:49:28 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_strdup(const char *src);
 char	**ft_split(char const *s, char c);
 int		ft_strlcpy(char *dest, const char *src, int size);
 
-int		get_commands(t_pipex *pipex, char **argv, int out_arg, char **envp);
+int		get_commands(t_pipex *pipex, char **argv, char **envp);
 void	get_paths(t_pipex *pipex, char **envp, char c);
 // int		get_pathname(char **paths, t_cmd *cmd);
 
