@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 19:47:04 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/19 20:46:43 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/03/03 12:28:06 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,46 +23,28 @@ free(pipex->fd)
 free(pipex->cmd)
 */
 
-void	free_strings(char **strings, int len)
-{
-	while (len)
-	{
-		len--;
-		free(strings[len]);
-	}
-	free(strings);
-}
-
-void	free_ints(int **ints, int len)
-{
-	while(len)
-	{
-		len--;
-		free(ints[len]);
-	}
-	free(ints);
-}
-
-void	free_cmd(t_cmd *cmd)
-{
-	free_strings(cmd->cmdv, nr_strings(cmd->cmdv));
-	free(cmd->pathname);
-}
-
 void	exit_pipex(t_pipex *pipex, int status, char *message)
 {
-	// if (status > 0)
-	// {
-		
-	// }
-	
-	if (status == -3) // free pipex->cmnd **
+	if (status == -1)
 	{
-		perror(message);
-		free(pipex->cmd);
+		while(pipex->current_child)
+		{
+			free_cmd(&pipex->cmd[pipex->current_child]);
+			pipex->current_child--;
+		}
 	}
-	else if (status == -4)
-		perror("Malloc error separating arguments and flags"); // free pipex->cmnd->cmdv  **get_commands
+	if (status > 0)
+	{
+		while (pipex->current_child <= pipex->nr_children - 1)
+		{
+			free_cmd(&pipex->cmd[pipex->current_child]);
+			pipex->current_child++;
+		}
+	}
+	if (pipex->pid)
+		free(pipex->pid);
+	if (pipex->paths)
+		free_strings(pipex->paths, nr_strings(pipex->paths));
 	if (status)
 		perror(message);
 	exit(0);

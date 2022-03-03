@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/01 14:53:28 by nsterk        #+#    #+#                  #
-#    Updated: 2022/02/19 17:54:48 by naomisterk    ########   odam.nl          #
+#    Updated: 2022/03/03 12:13:09 by naomisterk    ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,9 @@ NAME		=	pipex
 endif
 
 CC			=	cc
-FLAGS		=	-Wall -Wextra -Werror
+FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
 
-SHARED_SRCS	=	srcs/utils.c srcs/ft_split.c 
+SHARED_SRCS	=	srcs/utils.c srcs/ft_split.c srcs/free_functions.c
 MAIN_SRCS	=	srcs/main.c srcs/get_commands.c srcs/children.c \
 				srcs/pipes.c srcs/exit.c
 BONUS_SRCS	=	srcs/main_bonus.c srcs/get_commands_bonus.c \

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/02/20 09:54:19 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/03/03 12:12:59 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,17 @@ int	get_commands(t_pipex *pipex, char **argv, char **envp)
 		pipex->cmd[pipex->current_child].cmdv = \
 		ft_split(argv[pipex->current_child + 2], ' ');
 		if (!pipex->cmd[pipex->current_child].cmdv)
-			exit_pipex(pipex, -4, "Malloc failure");
+			exit_pipex(pipex, -1, "Malloc failure");
 		found = get_pathname(pipex->paths, &pipex->cmd[pipex->current_child]);
 		if (found > 0)
-			exit_pipex(pipex, 1, "command not found");
+			exit_pipex(pipex, -1, "command not found");
 		else if (found < 0)
-			exit_pipex(pipex, -4, "Malloc failure");
+			exit_pipex(pipex, -1, "Malloc failure");
 		pipex->current_child++;
 	}
 	pipex->current_child = 0;
 	free_strings(pipex->paths, nr_strings(pipex->paths));
+	pipex->paths = NULL;
+	free(pipex->paths);
 	return (0);
 }
