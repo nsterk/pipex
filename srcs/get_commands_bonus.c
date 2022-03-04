@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/03 12:12:59 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/03/04 18:06:05 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,6 @@ void	get_paths(t_pipex *pipex, char **envp, char c)
 	if (!pipex->paths)
 		exit_pipex(pipex, -2, "Malloc failure getting env paths");
 }
-
-/*
-Ik kan pipex->current child gebruiken als i. Als ik dan een error status van -1 heb weet ik waar 
-het fout is gegaan in get_pathname en dus welke cmdv en pathnames ik moet freeen.
-
-*/
 
 int	get_commands(t_pipex *pipex, char **argv, char **envp)
 {
