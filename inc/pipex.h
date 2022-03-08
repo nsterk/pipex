@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/16 19:11:24 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/03/04 18:12:13 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ typedef struct s_cmd
 typedef struct s_pipex
 {
 	char	**paths;
-	t_cmd	*cmd;
-	int		*pid;
+	t_cmd	cmd1;
+	t_cmd	cmd2;
+	int		pid1;
+	int		pid2;
 	int		infile;
 	int		outfile;
 	int		**fd;
-	int		nr_children;
-	int		current_child;
 }				t_pipex;
 
 int		ft_strcmp(char *s1, char *s2);
