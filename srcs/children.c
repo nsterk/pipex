@@ -10,30 +10,45 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex.h>
+#include <pipex_bonus.h>
 #include <fcntl.h>
 
 void	first_child(t_pipex *pipex, char *file, char **envp)
 {
 	pipex->infile = open(file, O_RDONLY, 0777);
 	if (pipex->infile == -1)
-		perror(NULL);
-	dup2(pipex->fd[1], STDOUT_FILENO);
+		perror("couldnt open infile");
+	dup2(pipex->fd[0][1], STDOUT_FILENO);
 	dup2(pipex->infile, STDIN_FILENO);
-	close_pipe(pipex);
+	close_pipe(pipex->fd[0]);
+	close(pipex->infile);
 	if (execve(pipex->cmd[0].pathname, pipex->cmd[0].cmdv, envp) == -1)
-		perror("Execve process 1 failed");
+		exit_pipex(pipex, 2, "Failed to execute first command");
+}
+
+void	middle_children(t_pipex *pipex, char **envp)
+{
+	dup2(pipex->fd[pipex->current_child - 1][0], STDIN_FILENO);
+	dup2(pipex->fd[pipex->current_child][1], STDOUT_FILENO);
+	close_pipes(pipex);
+	if (execve(pipex->cmd[pipex->current_child].pathname, \
+		pipex->cmd[pipex->current_child].cmdv, envp) == -1)
+		exit_pipex(pipex, 2, "Failed to execute one of middle commands");
 }
 
 void	last_child(t_pipex *pipex, char *file, char **envp)
 {
 	pipex->outfile = open(file, O_WRONLY | O_CREAT, 0777);
 	if (pipex->outfile == -1)
-		perror("Failed to open outfile");
-	dup2(pipex->fd[0], STDIN_FILENO);
+		exit_pipex(pipex, 2, "Failed to open outfile");
+	if (pipex->nr_children > 2)
+		dup2(pipex->fd[pipex->nr_children - 2][0], STDIN_FILENO);
+	else
+		dup2(pipex->fd[0][0], STDIN_FILENO);
 	dup2(pipex->outfile, STDOUT_FILENO);
 	close(pipex->outfile);
-	close_pipe(pipex);
-	if (execve(pipex->cmd[1].pathname, pipex->cmd[1].cmdv, envp) == -1)
-		perror("execve process 2 failed");
+	close_pipes(pipex);
+	if (execve(pipex->cmd[pipex->current_child].pathname, \
+		pipex->cmd[pipex->current_child].cmdv, envp) == -1)
+		exit_pipex(pipex, 2, "Failed to execute last command");
 }

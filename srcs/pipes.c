@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipes.c                                            :+:    :+:            */
+/*   pipes_bonus.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 14:35:57 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/11 17:26:54 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/02/18 16:34:07 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex.h>
+#include <pipex_bonus.h>
 
 void	close_pipe(int *fd)
 {
@@ -18,4 +18,30 @@ void	close_pipe(int *fd)
 		return ;
 	close(fd[0]);
 	close(fd[1]);
+}
+
+void	open_pipes(t_pipex *pipex)
+{
+	int	i;
+
+	i = 0;
+	while (i < pipex->nr_children - 1)
+	{
+		if (pipe(pipex->fd[i]) == -1)
+			exit_pipex(pipex, 1, "Failure opening pipe");
+		i++;
+	}
+}
+
+void	close_pipes(t_pipex *pipex)
+{
+	int	i;
+
+	i = 0;
+	while (i < pipex->nr_children - 1)
+	{
+		close(pipex->fd[i][0]);
+		close(pipex->fd[i][1]);
+		i++;
+	}
 }
