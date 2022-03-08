@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex_bonus.h>
+#include <pipex.h>
 #include <fcntl.h>
 
 void	first_child(t_pipex *pipex, char *file, char **envp)

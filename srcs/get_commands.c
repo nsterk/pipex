@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_commands_bonus.c                               :+:    :+:            */
+/*   get_commands.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/04 18:06:05 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/03/08 09:34:09 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex_bonus.h>
+#include <pipex.h>
 
 static int	try_pathname(char *path, t_cmd *cmd)
 {

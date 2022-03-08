@@ -6,11 +6,11 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/20 10:42:06 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/02/20 10:42:36 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/03/08 09:34:09 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex_bonus.h>
+#include <pipex.h>
 
 void	free_strings(char **strings, int len)
 {

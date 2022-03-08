@@ -6,11 +6,11 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 17:54:53 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/03 12:30:12 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/03/08 09:34:09 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex_bonus.h>
+#include <pipex.h>
 #include <sys/wait.h>
 
 void	handle_the_children(t_pipex *pipex, char **argv, char **envp)

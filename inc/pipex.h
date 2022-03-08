@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex_bonus.h                                      :+:    :+:            */
+/*   pipex.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/02/20 10:34:58 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/03/08 09:31:40 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_BONUS_H
-# define PIPEX_BONUS_H
+#ifndef PIPEX_H
+# define PIPEX_H
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -45,7 +45,6 @@ int		ft_strlcpy(char *dest, const char *src, int size);
 
 int		get_commands(t_pipex *pipex, char **argv, char **envp);
 void	get_paths(t_pipex *pipex, char **envp, char c);
-// int		get_pathname(char **paths, t_cmd *cmd);
 
 // Child processes
 void	last_child(t_pipex *pipex, char *file, char **envp);

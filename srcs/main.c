@@ -1,6 +1,6 @@
 #include <sys/wait.h>
 #include <time.h>
-#include <pipex_bonus.h>
+#include <pipex.h>
 
 static void	init_pipex(t_pipex *pipex, int argc)
 {
