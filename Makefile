@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/01 14:53:28 by nsterk        #+#    #+#                  #
-#    Updated: 2022/03/08 09:47:15 by naomisterk    ########   odam.nl          #
+#    Updated: 2022/03/08 16:55:54 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,17 @@ NAME		=	pipex
 CC			=	cc
 FLAGS		=	-Wall -Wextra -Werror
 
-SRCS		=	srcs/main.c srcs/get_commands.c srcs/pipes.c srcs/children.c \
+SRCS_SHARED	=	srcs/get_commands.c srcs/pipes.c srcs/children.c \
 				srcs/process_management.c srcs/utils/utils.c srcs/utils/exit.c \
-				srcs/utils/ft_split.c srcs/utils/free_functions.c 
+				srcs/utils/ft_split.c srcs/utils/free_functions.c
+MAIN_MANDATORY	=	srcs/main.c
+MAIN_BONUS		=	srcs/main_bonus.c
+
+ifdef BONUS
+SRCS		= $(SRCS_SHARED) $(MAIN_BONUS)
+else
+SRCS		= $(SRCS_SHARED) $(MAIN_MANDATORY)
+endif
 
 OBJS		=	$(SRCS:%.c=%.o)
 
@@ -38,6 +46,7 @@ fclean: clean
 
 re: fclean all
 
-bonus: all
+bonus:
+	$(MAKE) BONUS=1 all
 
 .PHONY: all clean fclean re bonus

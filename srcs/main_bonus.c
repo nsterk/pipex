@@ -28,9 +28,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 
-	if (argc != 5)
+	if (argc < 5)
 	{
-		perror("Four arguments expected");
+		perror("Not enough arguments provided");
 		return (1);
 	}
 	init_pipex(&pipex, argc);
