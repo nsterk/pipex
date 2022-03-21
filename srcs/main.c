@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/03/21 12:59:54 by nsterk        #+#    #+#                 */
+/*   Updated: 2022/03/21 16:32:54 by nsterk        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <sys/wait.h>
 #include <time.h>
 #include <pipex.h>
@@ -8,6 +20,7 @@ static void	init_pipex(t_pipex *pipex, int argc)
 
 	pipe = 0;
 	pipex->paths = NULL;
+	pipex->status = 0;
 	pipex->nr_children = argc - 3;
 	pipex->current_child = 0;
 	pipex->cmd = malloc(sizeof(t_cmd) * pipex->nr_children);
@@ -28,10 +41,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 
-	if (argc != 5)
+	if (argc < 5)
 	{
-		perror("Four arguments expected");
-		return (1);
+		perror("Not enough arguments provided");
+		return (0);
 	}
 	init_pipex(&pipex, argc);
 	get_commands(&pipex, argv, envp);

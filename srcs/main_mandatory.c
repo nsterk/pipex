@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/03/21 13:00:19 by nsterk        #+#    #+#                 */
+/*   Updated: 2022/03/21 13:00:21 by nsterk        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <sys/wait.h>
 #include <time.h>
 #include <pipex.h>
@@ -28,9 +40,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 
-	if (argc < 5)
+	if (argc != 5)
 	{
-		perror("Not enough arguments provided");
+		perror("Four arguments expected");
 		return (1);
 	}
 	init_pipex(&pipex, argc);

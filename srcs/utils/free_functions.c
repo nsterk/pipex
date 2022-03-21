@@ -6,7 +6,7 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/20 10:42:06 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/08 09:34:09 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/03/21 18:38:36 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	free_ints(int **ints, int len)
 void	free_cmd(t_cmd *cmd)
 {
 	free_strings(cmd->cmdv, nr_strings(cmd->cmdv));
-	free(cmd->pathname);
+	if (cmd->pathname)
+		free(cmd->pathname);
 }

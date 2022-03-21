@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 19:47:04 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/08 09:34:20 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/03/21 18:24:24 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	choose_free_cmd(t_pipex *pipex, int status)
 {
-	if (status == -1)
+	if (status == 1)
 	{
 		while (pipex->current_child)
 		{
@@ -22,7 +22,7 @@ static void	choose_free_cmd(t_pipex *pipex, int status)
 			free_cmd(&pipex->cmd[pipex->current_child]);
 		}
 	}
-	if (status > 0)
+	if (status > 1)
 	{
 		while (pipex->current_child <= pipex->nr_children - 1)
 		{
@@ -43,5 +43,5 @@ void	exit_pipex(t_pipex *pipex, int status, char *message)
 		free_ints(pipex->fd, pipex->nr_children - 1);
 	if (status)
 		perror(message);
-	exit(0);
+	exit(pipex->status);
 }

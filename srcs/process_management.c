@@ -6,7 +6,7 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 17:54:53 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/08 09:34:09 by naomisterk    ########   odam.nl         */
+/*   Updated: 2022/03/21 18:22:21 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	fork_process(t_pipex *pipex)
 		free_cmd(&pipex->cmd[pipex->current_child - 1]);
 	pipex->pid[pipex->current_child] = fork();
 	if (pipex->pid[pipex->current_child] < 0)
-		exit_pipex(pipex, 1, "Failed to fork process");
+		exit_pipex(pipex, 2, "Failed to fork process");
 }
 
 void	wait_for_children(t_pipex *pipex)
@@ -49,7 +49,10 @@ void	wait_for_children(t_pipex *pipex)
 	i = 0;
 	while (i < pipex->nr_children)
 	{
-		waitpid(pipex->pid[i], NULL, 0);
+		waitpid(pipex->pid[i], &(pipex->status), 0);
+		if (WIFEXITED(pipex->status))
+			pipex->status = WEXITSTATUS(pipex->status);
+			// printf("%i:		%i\n", i, WEXITSTATUS(pipex->status));
 		i++;
 	}
 }
