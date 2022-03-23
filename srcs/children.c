@@ -19,9 +19,7 @@ void	first_child(t_pipex *pipex, char *file, char **envp)
 	if (pipex->infile == -1)
 		exit_pipex(pipex, 1, "Couldnt open infile");
 	dup2(pipex->fd[0][1], STDOUT_FILENO);
-	dup2(pipex->infile, STDIN_FILENO);
 	close_pipe(pipex->fd[0]);
-	close(pipex->infile);
 	if (execve(pipex->cmd[0].pathname, pipex->cmd[0].cmdv, envp) == -1)
 		exit_pipex(pipex, 127, "Failed to execute first command");
 }
