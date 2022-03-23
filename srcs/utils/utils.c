@@ -6,7 +6,7 @@
 /*   By: nsterk <marvin@codam.nl>                     +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/22 15:39:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/23 15:43:36 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/23 20:38:51 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ int	nr_strings(char **strings)
 	return (i);
 }
 
-int	ft_strncmp(const char *s1, const char *s2, size_t len)
+int	ft_strncmp(const char *s1, const char *s2, int len)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (!s1 || !s2)
 		return (0);
-	while ((s1[i] != '\0' || s2[i] != '\0') && i < len)
+	while (i < len && (s1[i] != '\0' || s2[i] != '\0'))
 	{
 		if (s1[i] == s2[i])
 			i++;

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/23 20:23:57 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/23 21:11:15 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,19 @@ static void	get_paths(t_pipex *pipex, char **envp, char c)
 
 static int	prep_commands(char *str, t_cmd *cmd)
 {
+	int		cmd_len;
+	char	*tmp;
+
 	cmd->cmdv = ft_split(str, ' ');
 	if (!cmd->cmdv)
 		return (1);
+	cmd_len = ft_strlen(cmd->cmdv[0]);
+	if (cmd_len < 3)
+		return (0);
+	if (!ft_strncmp(cmd->cmdv[0][cmd_len - 3], "sed", 3))
+	{
+		while cmd->cmdv
+	}
 	return (0);
 }
 
@@ -84,12 +94,9 @@ int	get_commands(t_pipex *pipex, char **argv, char **envp)
 	{
 		if (!argv || !argv[pipex->current_child + 2])
 			exit_pipex(pipex, 1, "unable to grab arguments");
-		if (prep_commands(argv[pipex->current_child + 2], &pipex->cmd[pipex->current_child]))
+		if (prep_commands(argv[pipex->current_child + 2], \
+		&pipex->cmd[pipex->current_child]))
 			exit_pipex(pipex, 1, "Malloc failure");
-		// pipex->cmd[pipex->current_child].cmdv = \
-		// ft_split(argv[pipex->current_child + 2], ' ');
-		// if (!pipex->cmd[pipex->current_child].cmdv)
-		// 	exit_pipex(pipex, 1, "Malloc failure");
 		found = get_pathname(pipex->paths, &pipex->cmd[pipex->current_child]);
 		if (found > 0)
 			pipex->cmd[pipex->current_child].pathname = NULL;
