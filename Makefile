@@ -6,14 +6,13 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/01 14:53:28 by nsterk        #+#    #+#                  #
-#    Updated: 2022/03/21 18:51:55 by nsterk        ########   odam.nl          #
+#    Updated: 2022/03/23 15:54:30 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	pipex
 CC		=	cc
-FLAGS	=	-Wall -Wextra -Werror
-
+FLAGS	=	-Wall -Wextra -Werror -g
 SRCS_SHARED	=	srcs/get_commands.c srcs/pipes.c srcs/children.c \
 			srcs/process_management.c srcs/utils/utils.c srcs/utils/exit.c \
 			srcs/utils/ft_split.c srcs/utils/free_functions.c \

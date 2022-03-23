@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/21 18:52:43 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/23 15:54:21 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,9 @@ static int	try_pathname(char *path, t_cmd *cmd)
 {
 	char	*pathslash;
 
-	if (access(cmd->cmdv[0], F_OK))
-	{
-		cmd->pathname = ft_strdup(cmd->cmdv[0]);
-		return (1);
-	}
 	pathslash = ft_strjoin(path, "/");
 	if (!pathslash)
-		return (-1);
+		return (1);
 	cmd->pathname = ft_strjoin(pathslash, cmd->cmdv[0]);
 	free(pathslash);
 	if (!cmd->pathname)
@@ -31,6 +26,7 @@ static int	try_pathname(char *path, t_cmd *cmd)
 	if (access(cmd->pathname, F_OK))
 	{
 		free(cmd->pathname);
+		cmd->pathname = NULL;
 		return (1);
 	}
 	else
@@ -44,6 +40,13 @@ static int	get_pathname(char **paths, t_cmd *cmd)
 
 	i = 0;
 	not_found = 1;
+	if (!access(cmd->cmdv[0], F_OK))
+	{
+		cmd->pathname = ft_strdup(cmd->cmdv[0]);
+		return (0);
+	}
+	else if (!paths)
+		return (1);
 	while (not_found > 0 && paths[i])
 	{
 		not_found = try_pathname(paths[i], cmd);
@@ -56,6 +59,8 @@ void	get_paths(t_pipex *pipex, char **envp, char c)
 {
 	while (ft_strncmp("PATH", *envp, 4))
 		envp++;
+	if (!*envp)
+		return ;
 	pipex->paths = ft_split(*envp + 5, c);
 	if (!pipex->paths)
 		exit_pipex(pipex, 1, "Malloc failure getting env paths");
@@ -76,14 +81,14 @@ int	get_commands(t_pipex *pipex, char **argv, char **envp)
 			exit_pipex(pipex, 1, "Malloc failure");
 		found = get_pathname(pipex->paths, &pipex->cmd[pipex->current_child]);
 		if (found > 0)
-			pipex->cmd->pathname = NULL;
+			pipex->cmd[pipex->current_child].pathname = NULL;
 		else if (found < 0)
 			exit_pipex(pipex, 1, "Malloc failure");
 		pipex->current_child++;
 	}
 	pipex->current_child = 0;
-	free_strings(pipex->paths, nr_strings(pipex->paths));
+	if (pipex->paths)
+		free_strings(pipex->paths, nr_strings(pipex->paths));
 	pipex->paths = NULL;
-	free(pipex->paths);
 	return (0);
 }

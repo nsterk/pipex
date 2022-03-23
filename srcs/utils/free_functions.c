@@ -6,7 +6,7 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/20 10:42:06 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/21 18:38:36 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/23 12:40:06 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,26 @@
 
 void	free_strings(char **strings, int len)
 {
-	while (len)
+	while (len > 0)
 	{
 		len--;
-		free(strings[len]);
+		if (strings[len])
+			free(strings[len]);
 	}
-	free(strings);
+	if (strings)
+		free(strings);
 }
 
 void	free_ints(int **ints, int len)
 {
-	while (len)
+	while (len > 0)
 	{
 		len--;
-		free(ints[len]);
+		if (ints[len])
+			free(ints[len]);
 	}
-	free(ints);
+	if (ints)
+		free(ints);
 }
 
 void	free_cmd(t_cmd *cmd)
