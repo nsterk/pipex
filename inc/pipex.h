@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/23 20:19:13 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/23 20:20:30 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char	**ft_split(char const *s, char c);
 int		ft_strlcpy(char *dest, const char *src, int size);
 
 int		get_commands(t_pipex *pipex, char **argv, char **envp);
-void	get_paths(t_pipex *pipex, char **envp, char c);
 
 // Child processes
 void	last_child(t_pipex *pipex, char *file, char **envp);

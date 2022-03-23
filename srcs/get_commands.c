@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/23 20:17:44 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/23 20:20:05 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	get_pathname(char **paths, t_cmd *cmd)
 	return (not_found);
 }
 
-void	get_paths(t_pipex *pipex, char **envp, char c)
+static void	get_paths(t_pipex *pipex, char **envp, char c)
 {
 	while (ft_strncmp("PATH", *envp, 4))
 		envp++;
