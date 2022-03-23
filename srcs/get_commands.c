@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/23 16:44:43 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/23 20:17:44 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static int	get_pathname(char **paths, t_cmd *cmd)
 
 	i = 0;
 	not_found = 1;
+	cmd->pathname = NULL;
 	if (!access(cmd->cmdv[0], F_OK))
 	{
 		cmd->pathname = ft_strdup(cmd->cmdv[0]);
@@ -87,8 +88,5 @@ int	get_commands(t_pipex *pipex, char **argv, char **envp)
 		pipex->current_child++;
 	}
 	pipex->current_child = 0;
-	if (pipex->paths)
-		free_strings(pipex->paths, nr_strings(pipex->paths));
-	pipex->paths = NULL;
 	return (0);
 }
