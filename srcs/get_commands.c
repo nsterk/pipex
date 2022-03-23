@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/21 18:52:43 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/22 15:06:34 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ static int	try_pathname(char *path, t_cmd *cmd)
 {
 	char	*pathslash;
 
-	if (access(cmd->cmdv[0], F_OK))
-	{
-		cmd->pathname = ft_strdup(cmd->cmdv[0]);
-		return (1);
-	}
 	pathslash = ft_strjoin(path, "/");
 	if (!pathslash)
 		return (-1);
@@ -44,6 +39,12 @@ static int	get_pathname(char **paths, t_cmd *cmd)
 
 	i = 0;
 	not_found = 1;
+	if (!access(cmd->cmdv[0], F_OK))
+	{
+		cmd->pathname = ft_strdup(cmd->cmdv[0]);
+		// hier malloc protection
+		return (0);
+	}
 	while (not_found > 0 && paths[i])
 	{
 		not_found = try_pathname(paths[i], cmd);
