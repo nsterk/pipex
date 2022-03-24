@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/01 14:53:28 by nsterk        #+#    #+#                  #
-#    Updated: 2022/03/23 15:54:30 by nsterk        ########   odam.nl          #
+#    Updated: 2022/03/23 22:54:13 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ FLAGS	=	-Wall -Wextra -Werror -g
 SRCS_SHARED	=	srcs/get_commands.c srcs/pipes.c srcs/children.c \
 			srcs/process_management.c srcs/utils/utils.c srcs/utils/exit.c \
 			srcs/utils/ft_split.c srcs/utils/free_functions.c \
-			srcs/utils/ft_strdup.c
+			srcs/utils/ft_strdup.c srcs/utils/ft_strtrim.c
 SRCS_MANDATORY = srcs/main_mandatory.c
 SRCS_BONUS = srcs/main.c
 

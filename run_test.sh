@@ -302,6 +302,12 @@ run_pipex "$file_in" "grep contents" "wc -l" "/tmp/file_out_yours"
 export PATH="$tmp_path"
 compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
 
+# Test 32.5: Output file is directory
+echo "Test 32.5: sed command"
+run_bash "< $file_in cat | sed 's/codam/Codam/g' > /tmp/file_out_bash"
+run_pipex "$file_in" "cat" "sed 's/codam/Codam/g'" "/tmp/file_out_yours"
+compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
+
 if [[ "$bonus" == "1" ]]; then
 
 	# Test 33

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/23 21:11:15 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/23 23:40:17 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,28 @@ static void	get_paths(t_pipex *pipex, char **envp, char c)
 
 static int	prep_commands(char *str, t_cmd *cmd)
 {
-	int		cmd_len;
+	int		i;
 	char	*tmp;
 
 	cmd->cmdv = ft_split(str, ' ');
 	if (!cmd->cmdv)
 		return (1);
-	cmd_len = ft_strlen(cmd->cmdv[0]);
-	if (cmd_len < 3)
+	if (ft_strlen(cmd->cmdv[0]) < 3 || nr_strings(cmd->cmdv) < 1)
 		return (0);
-	if (!ft_strncmp(cmd->cmdv[0][cmd_len - 3], "sed", 3))
+	i = 1;
+	if (!ft_strncmp(cmd->cmdv[0] + (ft_strlen(cmd->cmdv[0]) - 3), "sed", 3))
 	{
-		while cmd->cmdv
+		while (cmd->cmdv[i])
+		{
+			if (cmd->cmdv[i][0] == '\'')
+			{
+				tmp = ft_strdup(cmd->cmdv[i]);
+				free(cmd->cmdv[i]);
+				cmd->cmdv[i] = ft_strtrim(tmp, "\'");
+				free(tmp);
+			}
+			i++;
+		}
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/23 20:34:20 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/23 22:52:27 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strlen(const char *s);
 char	*ft_strdup(const char *src);
 char	**ft_split(char const *s, char c);
+char	*ft_strtrim(char const *s1, char const *set);
 int		ft_strlcpy(char *dest, const char *src, int size);
 
 int		get_commands(t_pipex *pipex, char **argv, char **envp);
