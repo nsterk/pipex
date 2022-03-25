@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/21 12:59:54 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/23 18:30:40 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/25 20:11:48 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static void	init_pipex(t_pipex *pipex, int argc)
 	pipex->pid = malloc(sizeof(int) * pipex->nr_children);
 	pipex->fd = malloc(sizeof(pipex->fd) * (pipex->nr_children - 1));
 	if (!pipex->cmd || !pipex->pid || !pipex->fd)
-		exit_pipex(pipex, 1, "Malloc failure in init");
+		exit_pipex(pipex, 1, "Malloc failure");
 	while (pipe < pipex->nr_children - 1)
 	{
 		pipex->fd[pipe] = malloc(sizeof(int) * 2);
 		if (!pipex->fd[pipe])
-			exit_pipex(pipex, 1, "Malloc failure in init");
+			exit_pipex(pipex, 1, "Malloc failure");
 		pipe++;
 	}
 }

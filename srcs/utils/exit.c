@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 19:47:04 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/25 13:40:02 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/25 20:15:26 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	exit_pipex(t_pipex *pipex, int status, char *message)
 		free_strings(pipex->paths, nr_strings(pipex->paths));
 	if (pipex->fd)
 		free_ints(pipex->fd, pipex->nr_children - 1);
-	if (status)
-		perror(message);
+	if (message)
+		perror(NULL);
 	exit(status);
 }

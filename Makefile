@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/01 14:53:28 by nsterk        #+#    #+#                  #
-#    Updated: 2022/03/25 13:49:42 by nsterk        ########   odam.nl          #
+#    Updated: 2022/03/25 20:09:59 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,14 @@ CC		=	cc
 FLAGS	=	-Wall -Wextra -Werror -g
 SRCS_SHARED	=	srcs/get_commands.c srcs/pipes.c srcs/children.c \
 			srcs/process_management.c srcs/utils/utils_01.c srcs/utils/exit.c \
-			srcs/utils/ft_split.c srcs/utils/utils_02.c
+			srcs/utils/ft_split.c srcs/utils/utils_02.c 
+SRCS_BONUS	=	srcs/main.c
 SRCS_MANDATORY = srcs/main_mandatory.c
-SRCS_BONUS = srcs/main.c
 
-ifdef WITH_BONUS
-SRCS	=	$(SRCS_SHARED) $(SRCS_BONUS)
+ifdef BONUS
+SRCS = $(SRCS_SHARED) $(SRCS_BONUS)
 else
-SRCS	=	$(SRCS_SHARED) $(SRCS_MANDATORY)
+SRCS = $(SRCS_SHARED) $(SRCS_MANDATORY)
 endif
 
 OBJS	=	$(SRCS:%.c=%.o)
@@ -44,8 +44,8 @@ fclean: clean
 	@ rm -rf $(NAME)
 
 bonus:
-	@ $(MAKE) WITH_BONUS=1 all
+	@ $(MAKE) BONUS=1 all
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

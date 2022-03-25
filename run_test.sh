@@ -302,44 +302,96 @@ run_pipex "$file_in" "grep contents" "wc -l" "/tmp/file_out_yours"
 export PATH="$tmp_path"
 compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
 
-# Test 32.5: Output file is directory
+# Test 33: Handling sed command
 echo "Test 32.5: sed command"
 run_bash "< $file_in cat | sed 's/codam/Codam/g' > /tmp/file_out_bash"
 run_pipex "$file_in" "cat" "sed 's/codam/Codam/g'" "/tmp/file_out_yours"
 compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
 
+# Test 34: Handling sed command with option
+echo "Test 34: sed command and option"
+run_bash "< $file_in cat | sed -l 's/codam/Codam/g' > /tmp/file_out_bash"
+run_pipex "$file_in" "cat" "sed -l 's/codam/Codam/g'" "/tmp/file_out_yours"
+compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
+
+# Test 34: Handling sed command with option
+echo "Test 34: sed command and option"
+run_bash "< $file_in cat | sed -l 's/codam/Codam/g' > /tmp/file_out_bash"
+run_pipex "$file_in" "cat" "sed -l 's/codam/Codam/g'" "/tmp/file_out_yours"
+compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
+
+# Create output file
+existing_out_bash="existing_out_bash"
+existing_out_yours="existing_out_yours"
+
+#create small input file
+small_file_in = "tmp/small_file_in"
+
+cat << EOF > $small_file_in
+hoi
+hoi
+EOF
+
+cat << EOF > $existing_out_bash
+1
+2
+3
+4
+5
+6
+7
+8
+EOF
+
+cat << EOF > $existing_out_yours
+1
+2
+3
+4
+5
+6
+7
+8
+EOF
+
+# Test 35: Multiple cat commands to existing outfile
+echo "Test 35: Multiple cat cmomands"
+run_bash "< $file_in cat -e | cat -e  > $existing_out_bash"
+run_pipex "$file_in" "cat -e" "cat -e" "$existing_out_yours"
+compare_outputs "$exit_status_bash" "$exit_status_yours" "existing_out_bash" "existing_out_yours"
+
 if [[ "$bonus" == "1" ]]; then
 
-	# Test 33
-	echo "Test 33: Multiple commands"
+	# Test 43
+	echo "Test 43: Multiple commands"
 	run_bash "< $file_in ls -l | grep pipex | wc -l > /tmp/file_out_bash"
 	"$pipex" "$file_in" "ls -l" "grep pipex" "wc -l" "/tmp/file_out_yours"
 	exit_status_yours="$?"
 	compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
 
-	# Test 34
-	echo "Test 34: Multiple commands empty input middle command"
+	# Test 44
+	echo "Test 44: Multiple commands empty input middle command"
 	run_bash "< $file_in ls -l | \"\" | wc -l > /tmp/file_out_bash"
 	"$pipex" "$file_in" "ls -l" "" "wc -l" "/tmp/file_out_yours"
 	exit_status_yours="$?"
 	compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
 
-	# Test 35
-	echo "Test 35: Multiple commands empty input last command"
+	# Test 45
+	echo "Test 45: Multiple commands empty input last command"
 	run_bash "< $file_in ls -l | grep pipex | \"\" > /tmp/file_out_bash"
 	"$pipex" "$file_in" "ls -l" "grep pipex" "" "/tmp/file_out_yours"
 	exit_status_yours="$?"
 	compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
 
-	# Test 36
-	echo "Test 36: Multiple commands, no process communication"
+	# Test 46
+	echo "Test 46: Multiple commands, no process communication"
 	run_bash "< $file_in ls -l | ping -c 3 google.com | cat $file_in > /tmp/file_out_bash"
 	"$pipex" "$file_in" "ls -l" "ping -c 3 google.com" "cat $file_in" "/tmp/file_out_yours"
 	exit_status_yours="$?"
 	compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
 
-	# Test 37
-	echo "Test 37: Multiple commands extreme, no process communication"
+	# Test 47
+	echo "Test 47: Multiple commands extreme, no process communication"
 	run_bash "< $file_in ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -l | ls -la | wc -l > /tmp/file_out_bash"
 	"$pipex" "$file_in" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -l" "ls -la" "wc -l" "/tmp/file_out_yours"
 	exit_status_yours="$?"

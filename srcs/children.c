@@ -23,7 +23,7 @@ void	first_child(t_pipex *pipex, char *file, char **envp)
 	close_pipe(pipex->fd[0]);
 	close(pipex->infile);
 	if (execve(pipex->cmd[0].pathname, pipex->cmd[0].cmdv, envp) == -1)
-		exit_pipex(pipex, 127, "Failed to execute first command");
+		exit_pipex(pipex, 127, "Failed to open infile");
 }
 
 void	middle_children(t_pipex *pipex, char **envp)
@@ -38,7 +38,7 @@ void	middle_children(t_pipex *pipex, char **envp)
 
 void	last_child(t_pipex *pipex, char *file, char **envp)
 {
-	pipex->outfile = open(file, O_WRONLY | O_CREAT, 0777);
+	pipex->outfile = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (pipex->outfile == -1)
 		exit_pipex(pipex, 1, "Failed to open outfile");
 	if (pipex->nr_children > 2)
