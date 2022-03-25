@@ -6,31 +6,42 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 19:47:04 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/25 13:33:44 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/25 13:40:02 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
-// static void	choose_free_cmd(t_pipex *pipex, int status)
-// {
-// 	if (status == 1)
-// 	{
-// 		while (pipex->current_child)
-// 		{
-// 			pipex->current_child--;
-// 			free_cmd(&pipex->cmd[pipex->current_child]);
-// 		}
-// 	}
-// 	if (status > 1)
-// 	{
-// 		while (pipex->current_child <= pipex->nr_children - 1)
-// 		{
-// 			free_cmd(&pipex->cmd[pipex->current_child]);
-// 			pipex->current_child++;
-// 		}
-// 	}
-// }
+void	free_strings(char **strings, int len)
+{
+	while (len > 0)
+	{
+		len--;
+		if (strings[len])
+			free(strings[len]);
+	}
+	if (strings)
+		free(strings);
+}
+
+void	free_ints(int **ints, int len)
+{
+	while (len > 0)
+	{
+		len--;
+		if (ints[len])
+			free(ints[len]);
+	}
+	if (ints)
+		free(ints);
+}
+
+void	free_cmd(t_cmd *cmd)
+{
+	free_strings(cmd->cmdv, nr_strings(cmd->cmdv));
+	if (cmd->pathname)
+		free(cmd->pathname);
+}
 
 void	exit_pipex(t_pipex *pipex, int status, char *message)
 {

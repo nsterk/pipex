@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 21:10:11 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/23 22:55:26 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/25 13:43:32 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*ft_strchr(const char *s, int c)
 
 static char	*ft_substr(char const *s, int start, int len)
 {
-	int	i;
+	int		i;
 	char	*sub;
 
 	if (!s)
@@ -50,6 +50,19 @@ static char	*ft_substr(char const *s, int start, int len)
 	}
 	sub[i] = '\0';
 	return (sub);
+}
+
+char	*ft_strdup(const char *src)
+{
+	char	*rstr;
+	size_t	len;
+
+	len = ft_strlen((char *)src);
+	rstr = (char *)malloc(sizeof(*rstr) * (len + 1));
+	if (!rstr)
+		return (NULL);
+	ft_strlcpy(rstr, src, len + 1);
+	return (rstr);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)

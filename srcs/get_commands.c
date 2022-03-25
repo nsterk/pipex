@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/24 20:37:00 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/25 13:40:44 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	get_commands(t_pipex *pipex, char **argv, char **envp)
 	while (pipex->current_child < pipex->nr_children)
 	{
 		if (!argv || !argv[pipex->current_child + 2])
-			exit_pipex(pipex, 1, "unable to grab arguments");
+			exit_pipex(pipex, 1, "Unable to grab arguments");
 		if (prep_commands(argv[pipex->current_child + 2], \
 		&pipex->cmd[pipex->current_child]))
 			exit_pipex(pipex, 1, "Malloc failure");

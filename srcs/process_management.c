@@ -6,7 +6,7 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 17:54:53 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/23 14:45:06 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/25 13:41:17 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,10 @@ void	handle_the_children(t_pipex *pipex, char **argv, char **envp)
 	fork_process(pipex);
 	if (pipex->pid[pipex->current_child] == 0)
 		last_child(pipex, argv[pipex->nr_children + 2], envp);
-	// free_cmd(&pipex->cmd[pipex->current_child]);
-	// free(pipex->cmd);
 }
 
 void	fork_process(t_pipex *pipex)
 {
-	// if (pipex->current_child > 0)
-	// 	free_cmd(&pipex->cmd[pipex->current_child - 1]);
 	pipex->pid[pipex->current_child] = fork();
 	if (pipex->pid[pipex->current_child] < 0)
 		exit_pipex(pipex, 1, "Failed to fork process");
@@ -55,12 +51,4 @@ void	wait_for_children(t_pipex *pipex)
 			pipex->status = WEXITSTATUS(status);
 		i++;
 	}
-	// while (i < pipex->nr_children)
-	// {
-	// 	waitpid(pipex->pid[i], &(pipex->status), 0);
-	// 	if (WIFEXITED(pipex->status))
-	// 		pipex->status = WEXITSTATUS(pipex->status);
-	// 	printf("%i:		%i\n", i, WEXITSTATUS(pipex->status));
-	// 	i++;
-	// }
 }

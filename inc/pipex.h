@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/23 22:52:27 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/25 13:49:14 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct s_pipex
 	int		status;
 }				t_pipex;
 
-int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, int len);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strlen(const char *s);
