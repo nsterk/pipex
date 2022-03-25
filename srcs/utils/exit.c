@@ -6,35 +6,42 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 19:47:04 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/23 15:59:40 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/25 13:33:44 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
-static void	choose_free_cmd(t_pipex *pipex, int status)
-{
-	if (status == 1)
-	{
-		while (pipex->current_child)
-		{
-			pipex->current_child--;
-			free_cmd(&pipex->cmd[pipex->current_child]);
-		}
-	}
-	if (status > 1)
-	{
-		while (pipex->current_child <= pipex->nr_children - 1)
-		{
-			free_cmd(&pipex->cmd[pipex->current_child]);
-			pipex->current_child++;
-		}
-	}
-}
+// static void	choose_free_cmd(t_pipex *pipex, int status)
+// {
+// 	if (status == 1)
+// 	{
+// 		while (pipex->current_child)
+// 		{
+// 			pipex->current_child--;
+// 			free_cmd(&pipex->cmd[pipex->current_child]);
+// 		}
+// 	}
+// 	if (status > 1)
+// 	{
+// 		while (pipex->current_child <= pipex->nr_children - 1)
+// 		{
+// 			free_cmd(&pipex->cmd[pipex->current_child]);
+// 			pipex->current_child++;
+// 		}
+// 	}
+// }
 
 void	exit_pipex(t_pipex *pipex, int status, char *message)
 {
-	choose_free_cmd(pipex, status);
+	int	i;
+
+	i = 0;
+	while (i < pipex->nr_children)
+	{
+		free_cmd(&pipex->cmd[i]);
+		i++;
+	}
 	if (pipex->pid)
 		free(pipex->pid);
 	if (pipex->paths)

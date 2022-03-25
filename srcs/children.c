@@ -17,7 +17,7 @@ void	first_child(t_pipex *pipex, char *file, char **envp)
 {
 	pipex->infile = open(file, O_RDONLY, 0777);
 	if (pipex->infile == -1)
-		exit_pipex(pipex, 1, "Couldnt open infile");
+		exit_pipex(pipex, 1, "Failed to open infile");
 	dup2(pipex->infile, STDIN_FILENO);
 	dup2(pipex->fd[0][1], STDOUT_FILENO);
 	close_pipe(pipex->fd[0]);
