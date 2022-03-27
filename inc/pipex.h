@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/25 13:49:14 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/27 04:04:48 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_pipex
 	int		nr_children;
 	int		current_child;
 	int		status;
+	int		here_doc;
+	char	*delimiter;
 }				t_pipex;
 
 int		ft_strncmp(const char *s1, const char *s2, int len);
@@ -64,4 +66,6 @@ void	free_cmd(t_cmd *cmd);
 void	free_strings(char **strings, int len);
 void	free_ints(int **ints, int len);
 int		nr_strings(char **strings);
+
+int	read_from_cmdl(char *delimiter);
 #endif
