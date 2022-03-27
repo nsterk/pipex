@@ -6,7 +6,7 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 17:54:53 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/27 04:33:18 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/27 19:58:28 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	handle_the_children(t_pipex *pipex, char **argv, char **envp)
 	if (pipex->pid[0] == 0)
 		first_child(pipex, argv[1], envp);
 	pipex->current_child++;
+	if (pipex->here_doc)
+		waitpid(pipex->pid[0], NULL, 0);
 	while (pipex->current_child < (pipex->nr_children - 1))
 	{
 		fork_process(pipex);
@@ -48,7 +50,10 @@ void	wait_for_children(t_pipex *pipex)
 	int	i;
 	int	status;
 
-	i = 0;
+	if (pipex->here_doc)
+		i = 1;
+	else
+		i = 0;
 	while (i < pipex->nr_children)
 	{
 		waitpid(pipex->pid[i], &status, 0);

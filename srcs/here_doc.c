@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/26 01:32:04 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/27 04:25:40 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/27 18:47:33 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@
 
 int	read_from_cmdl(char *delimiter)
 {
-	int		fd;
+	int		fd1;
+	int		fd2;
 	char	*line;
 	// char	*delimiter;
 
-	fd = open("tmp_here_doc", O_CREAT | O_RDWR | O_TRUNC, 0777);
-	if (fd == -1)
+	fd1 = open("tmp_here_doc", O_CREAT | O_RDWR | O_TRUNC, 0777);
+	if (fd1 == -1)
 	{
 		printf("\e[0;31merror: failed to open file\e[0m\n");
 		return (-1);
@@ -49,17 +50,19 @@ int	read_from_cmdl(char *delimiter)
 	// delimiter = ft_strgjoin(argv[1], )
 	if (get_next_line(STDIN_FILENO, &line) < 0 || !ft_strncmp(line, delimiter, 100))
 		return (-1);
-	write(fd, line, ft_strglen(line));
+	write(fd1, line, ft_strglen(line));
 	free(line);
 	while (get_next_line(STDIN_FILENO, &line) > 0 && ft_strncmp(line, delimiter, 100))
 	{
-		write(fd, "\n", 1);
-		write(fd, line, ft_strglen(line));
+		write(fd1, "\n", 1);
+		write(fd1, line, ft_strglen(line));
 		free(line);
 	}
 	if (line)
 		free(line);
-	return (fd);
+	fd2 = open("tmp_here_doc", O_RDONLY, 0777);
+	close(fd1);
+	return (fd2);
 }
 
 // void	first_child(t_pipex *pipex, char *file, char **envp)
