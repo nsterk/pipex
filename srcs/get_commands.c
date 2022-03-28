@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:39:13 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/27 20:20:09 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 12:46:57 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,13 @@ static int	prep_commands(char *str, t_cmd *cmd)
 int	get_commands(t_pipex *pipex, char **argv, char **envp)
 {
 	int	found;
-	int	offset;
 
 	get_paths(pipex, envp, ':');
-	if (pipex->here_doc)
-		offset = 3;
-	else
-		offset = 2;
 	while (pipex->current_child < pipex->nr_children)
 	{
-		if (!argv || !argv[pipex->current_child + offset])
+		if (!argv || !argv[pipex->current_child + pipex->offset])
 			exit_pipex(pipex, 1, "Unable to grab arguments");
-		if (prep_commands(argv[pipex->current_child + offset], \
+		if (prep_commands(argv[pipex->current_child + pipex->offset], \
 		&pipex->cmd[pipex->current_child]))
 			exit_pipex(pipex, 1, "Malloc failure");
 		found = get_pathname(pipex->paths, &pipex->cmd[pipex->current_child]);

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/26 01:32:04 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/27 22:23:19 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 12:33:08 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	read_from_cmdl(char *delimiter)
 	}
 	while (get_next_line(STDIN_FILENO, &line) > 0 && ft_strncmp(line, delimiter, 100))
 	{
-		write(fd1, line, ft_strglen(line));
+		write(fd1, line, ft_strlen(line));
 		write(fd1, "\n", 1);
 		free(line);
 	}

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/21 12:59:54 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/27 04:36:34 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 12:48:25 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ static void	init_pipex(t_pipex *pipex, int argc)
 	pipex->paths = NULL;
 	pipex->status = 0;
 	if (pipex->here_doc)
-		pipex->nr_children = argc - 4;
+		pipex->offset = 3;
 	else
-		pipex->nr_children = argc - 3;
+		pipex->offset = 2;
+	pipex->nr_children = argc - pipex->offset - 1;
 	pipex->current_child = 0;
 	pipex->cmd = malloc(sizeof(t_cmd) * pipex->nr_children);
 	pipex->pid = malloc(sizeof(int) * pipex->nr_children);
@@ -59,7 +60,6 @@ int	main(int argc, char **argv, char **envp)
 		pipex.here_doc = 0;
 		pipex.delimiter = NULL;
 	}
-	// read_from_stdin(argv[2]);
 	init_pipex(&pipex, argc);
 	get_commands(&pipex, argv, envp);
 	open_pipes(&pipex);

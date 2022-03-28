@@ -6,15 +6,16 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/05 21:02:52 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/26 23:43:23 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 12:36:23 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/get_next_line.h"
+#include <pipex.h>
 
 static int		has_newline(char *buffer)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (buffer)
@@ -29,7 +30,7 @@ static int		has_newline(char *buffer)
 
 static char		*adjust_buffer(char *buffer)
 {
-	size_t	offset;
+	int	offset;
 
 	if (!buffer)
 		return (NULL);
@@ -38,13 +39,13 @@ static char		*adjust_buffer(char *buffer)
 		offset++;
 	if (buffer[offset])
 		offset++;
-	ft_strglcpy(buffer, buffer + offset, ft_strglen(buffer) + 1);
+	ft_strglcpy(buffer, buffer + offset, ft_strlen(buffer) + 1);
 	return (buffer);
 }
 
 static char		*get_line(char *buffer)
 {
-	size_t	len;
+	int	len;
 	char	*str;
 
 	if (!buffer)
