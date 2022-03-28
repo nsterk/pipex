@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/28 12:46:27 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 13:15:48 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ void	open_pipes(t_pipex *pipex);
 void	exit_pipex(t_pipex *pipex, int status, char *message);
 void	free_cmd(t_cmd *cmd);
 void	free_strings(char **strings, int len);
-void	free_ints(int **ints, int len);
 int		nr_strings(char **strings);
 
 int		read_from_cmdl(char *delimiter);
-// int		get_next_line(int fd, char **line);
 #endif

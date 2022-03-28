@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/05 21:04:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/28 12:34:15 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 12:59:18 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # endif
 
 int		get_next_line(int fd, char **line);
-void	ft_strglcpy(char *dst, const char *src, int size);
 char	*ft_strndup(char *src, int n);
 char	*ft_strgjoin(char *s1, char *s2, int len_s2);
 

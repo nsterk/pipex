@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/01 14:53:28 by nsterk        #+#    #+#                  #
-#    Updated: 2022/03/27 04:30:46 by nsterk        ########   odam.nl          #
+#    Updated: 2022/03/28 13:00:13 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ FLAGS	=	-Wall -Wextra -Werror -g
 SRCS_SHARED	=	srcs/get_commands.c srcs/pipes.c srcs/children.c \
 			srcs/process_management.c srcs/utils/utils_01.c srcs/utils/exit.c \
 			srcs/utils/ft_split.c srcs/utils/utils_02.c 
-SRCS_TEST	= srcs/here_doc.c srcs/utils/get_next_line.c srcs/utils/get_next_line_utils.c
 SRCS_BONUS	=	srcs/here_doc.c srcs/main.c \
 				srcs/utils/get_next_line.c srcs/utils/get_next_line_utils.c
 SRCS_MANDATORY = srcs/main_mandatory.c
@@ -25,10 +24,6 @@ SRCS = $(SRCS_SHARED) $(SRCS_MANDATORY)
 
 ifdef BONUS
 SRCS = $(SRCS_SHARED) $(SRCS_BONUS)
-endif
-
-ifdef HERE_DOC
-SRCS = $(SRCS_TEST)
 endif
 
 OBJS	=	$(SRCS:%.c=%.o)
@@ -51,12 +46,7 @@ fclean: clean
 
 bonus:
 	@ $(MAKE) BONUS=1 all
-# $(CC) $(SRCS) $(FLAGS) inc/pipex.h -o pipex
 	make clean
-
-test:
-	make fclean
-	@ $(MAKE) HERE_DOC=1 all
 
 re: fclean all
 

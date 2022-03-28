@@ -6,29 +6,31 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/05 21:02:52 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/28 12:36:23 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 12:57:23 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/get_next_line.h"
+#include <get_next_line.h>
 #include <pipex.h>
 
-static int		has_newline(char *buffer)
+static int	has_newline(char *buffer)
 {
 	int	i;
 
 	i = 0;
 	if (buffer)
+	{
 		while (buffer[i])
 		{
 			if (buffer[i] == '\n')
 				return (1);
 			i++;
 		}
+	}
 	return (0);
 }
 
-static char		*adjust_buffer(char *buffer)
+static char	*adjust_buffer(char *buffer)
 {
 	int	offset;
 
@@ -39,13 +41,13 @@ static char		*adjust_buffer(char *buffer)
 		offset++;
 	if (buffer[offset])
 		offset++;
-	ft_strglcpy(buffer, buffer + offset, ft_strlen(buffer) + 1);
+	ft_strlcpy(buffer, buffer + offset, ft_strlen(buffer) + 1);
 	return (buffer);
 }
 
-static char		*get_line(char *buffer)
+static char	*get_line(char *buffer)
 {
-	int	len;
+	int		len;
 	char	*str;
 
 	if (!buffer)
@@ -59,11 +61,11 @@ static char		*get_line(char *buffer)
 		free(buffer);
 		return (NULL);
 	}
-	ft_strglcpy(str, buffer, len + 1);
+	ft_strlcpy(str, buffer, len + 1);
 	return (str);
 }
 
-static int		fill_buffer(int fd, char **buffer)
+static int	fill_buffer(int fd, char **buffer)
 {
 	char	temp_buffer[BUFFER_SIZE + 1];
 	int		ret;
@@ -88,7 +90,7 @@ static int		fill_buffer(int fd, char **buffer)
 	return (ret);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	*buffer;
 	int			ret;

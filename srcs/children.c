@@ -26,7 +26,7 @@ void	first_child(t_pipex *pipex, char *file, char **envp)
 	close_pipe(pipex->fd[0]);
 	close(pipex->infile);
 	if (execve(pipex->cmd[0].pathname, pipex->cmd[0].cmdv, envp) == -1)
-		exit_pipex(pipex, 127, NULL);
+		exit_pipex(pipex, 127, "Failed to execute first command");
 }
 
 void	middle_children(t_pipex *pipex, char **envp)

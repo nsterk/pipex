@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 19:47:04 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/25 20:15:26 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 13:15:25 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_strings(char **strings, int len)
 		free(strings);
 }
 
-void	free_ints(int **ints, int len)
+static void	free_ints(int **ints, int len)
 {
 	while (len > 0)
 	{
