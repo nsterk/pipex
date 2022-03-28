@@ -6,7 +6,7 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 17:54:53 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/28 15:31:18 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 15:54:15 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,7 @@ void	handle_the_children(t_pipex *pipex, char **argv, char **envp)
 	}
 	fork_process(pipex);
 	if (pipex->pid[pipex->current_child] == 0)
-	{
-		if (!pipex->here_doc)
-			last_child(pipex, argv[pipex->nr_children + 2], envp);
-		else
-			last_child(pipex, argv[pipex->nr_children + 3], envp);
-	}
+		last_child(pipex, argv[pipex->nr_children + pipex->offset], envp);
 }
 
 void	fork_process(t_pipex *pipex)
