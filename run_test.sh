@@ -293,14 +293,14 @@ run_bash "< $file_in grep codam | wc -l > /tmp/"
 run_pipex "$file_in" "grep codam" "wc -l" "/tmp/"
 compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/" "/tmp/"
 
-# Test 32: No PATH variable
-tmp_path="$PATH"
-unset PATH
-echo "Test 32: No PATH variable. NOTE: output files are not created. So red is good."
-run_bash "< $file_in grep contents | wc -l > /tmp/file_out_bash"
-run_pipex "$file_in" "grep contents" "wc -l" "/tmp/file_out_yours"
-export PATH="$tmp_path"
-compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
+# # Test 32: No PATH variable
+# tmp_path="$PATH"
+# unset PATH
+# echo "Test 32: No PATH variable. NOTE: output files are not created. So red is good."
+# run_bash "< $file_in grep contents | wc -l > /tmp/file_out_bash"
+# run_pipex "$file_in" "grep contents" "wc -l" "/tmp/file_out_yours"
+# export PATH="$tmp_path"
+# compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
 
 # Test 33: Handling sed command
 echo "Test 32.5: sed command"
@@ -325,7 +325,7 @@ existing_out_bash="existing_out_bash"
 existing_out_yours="existing_out_yours"
 
 #create small input file
-small_file_in = "tmp/small_file_in"
+small_file_in="/tmp/small_file_in"
 
 cat << EOF > $small_file_in
 hoi
@@ -355,7 +355,7 @@ cat << EOF > $existing_out_yours
 EOF
 
 # Test 35: Multiple cat commands to existing outfile
-echo "Test 35: Multiple cat cmomands"
+echo "Test 35: Multiple cat -e commands"
 run_bash "< $file_in cat -e | cat -e  > $existing_out_bash"
 run_pipex "$file_in" "cat -e" "cat -e" "$existing_out_yours"
 compare_outputs "$exit_status_bash" "$exit_status_yours" "existing_out_bash" "existing_out_yours"

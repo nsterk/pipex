@@ -6,27 +6,27 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/01 14:53:28 by nsterk        #+#    #+#                  #
-#    Updated: 2022/03/28 14:16:13 by nsterk        ########   odam.nl          #
+#    Updated: 2022/03/28 15:19:50 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	pipex
 CC		=	cc
-FLAGS	=	-Wall -Wextra -Werror -g
+FLAGS	=	-Wall -Wextra -Werror
 SRCS_SHARED	=	srcs/get_commands.c srcs/pipes.c srcs/children.c \
 			srcs/process_management.c srcs/utils/utils_01.c srcs/utils/exit.c \
-			srcs/utils/ft_split.c srcs/utils/utils_02.c 
-SRCS_BONUS	=	srcs/main.c \
-				srcs/utils/get_next_line.c srcs/utils/get_next_line_utils.c
-SRCS_MANDATORY = srcs/main_mandatory.c
+			srcs/utils/ft_split.c srcs/utils/utils_02.c srcs/here_doc.c \
+			srcs/utils/get_next_line.c srcs/utils/get_next_line_utils.c
+SRCS_BONUS	=	srcs/main_bonus.c
+SRCS_MANDATORY = srcs/main.c
 
-SRCS = $(SRCS_SHARED) $(SRCS_MANDATORY)
+SRCS		= $(SRCS_SHARED) $(SRCS_MANDATORY)
 
 ifdef BONUS
-SRCS = $(SRCS_SHARED) $(SRCS_BONUS)
+SRCS		= $(SRCS_SHARED) $(SRCS_BONUS)
 endif
 
-OBJS	=	$(SRCS:%.c=%.o)
+OBJS		=	$(SRCS:%.c=%.o)
 
 ifdef debug
 FLAGS	+= -g
@@ -46,7 +46,6 @@ fclean: clean
 
 bonus:
 	@ $(MAKE) BONUS=1 all
-	make clean
 
 re: fclean all
 
