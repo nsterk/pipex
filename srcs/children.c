@@ -11,7 +11,30 @@
 /* ************************************************************************** */
 
 #include <pipex.h>
+#include <get_next_line.h>
 #include <fcntl.h>
+
+static int	read_from_cmdl(char *delimiter)
+{
+	int		fd1;
+	int		fd2;
+	char	*line;
+
+	fd1 = open("tmp_here_doc", O_CREAT | O_RDWR | O_TRUNC, 0777);
+	if (fd1 == -1)
+		return (-1);
+	while (get_next_line(STDIN_FILENO, &line) > 0 && ft_strcmp(line, delimiter))
+	{
+		write(fd1, line, ft_strlen(line));
+		write(fd1, "\n", 1);
+		free(line);
+	}
+	if (line)
+		free(line);
+	fd2 = open("tmp_here_doc", O_RDONLY, 0777);
+	close(fd1);
+	return (fd2);
+}
 
 void	first_child(t_pipex *pipex, char *file, char **envp)
 {

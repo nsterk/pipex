@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/21 12:59:54 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/28 12:48:25 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 13:57:09 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
 		perror("Not enough arguments provided");
 		return (0);
 	}
-	if (!ft_strncmp(argv[1], "here_doc", 100))
+	if (!ft_strcmp(argv[1], "here_doc"))
 	{
 		pipex.here_doc = 1;
 		pipex.delimiter = ft_strdup(argv[2]);
