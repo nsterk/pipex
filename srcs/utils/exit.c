@@ -6,23 +6,11 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 19:47:04 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/28 13:15:25 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 13:19:07 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
-
-void	free_strings(char **strings, int len)
-{
-	while (len > 0)
-	{
-		len--;
-		if (strings[len])
-			free(strings[len]);
-	}
-	if (strings)
-		free(strings);
-}
 
 static void	free_ints(int **ints, int len)
 {
@@ -36,11 +24,23 @@ static void	free_ints(int **ints, int len)
 		free(ints);
 }
 
-void	free_cmd(t_cmd *cmd)
+static void	free_cmd(t_cmd *cmd)
 {
 	free_strings(cmd->cmdv, nr_strings(cmd->cmdv));
 	if (cmd->pathname)
 		free(cmd->pathname);
+}
+
+void	free_strings(char **strings, int len)
+{
+	while (len > 0)
+	{
+		len--;
+		if (strings[len])
+			free(strings[len]);
+	}
+	if (strings)
+		free(strings);
 }
 
 void	exit_pipex(t_pipex *pipex, int status, char *message)

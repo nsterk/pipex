@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 14:58:01 by nsterk        #+#    #+#                 */
-/*   Updated: 2022/03/28 13:15:48 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 13:19:11 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,11 @@ void	wait_for_children(t_pipex *pipex);
 void	fork_process(t_pipex *pipex);
 
 // Pipes
-void	close_pipe(int *fd);
 void	close_pipes(t_pipex *pipex);
 void	open_pipes(t_pipex *pipex);
 
 void	exit_pipex(t_pipex *pipex, int status, char *message);
-void	free_cmd(t_cmd *cmd);
+// void	free_cmd(t_cmd *cmd);
 void	free_strings(char **strings, int len);
 int		nr_strings(char **strings);
 
