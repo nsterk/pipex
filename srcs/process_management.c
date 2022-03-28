@@ -6,7 +6,7 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 17:54:53 by naomisterk    #+#    #+#                 */
-/*   Updated: 2022/03/28 14:21:05 by nsterk        ########   odam.nl         */
+/*   Updated: 2022/03/28 15:31:18 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,5 @@ void	wait_for_children(t_pipex *pipex)
 	}
 	close(pipex->infile);
 	if (pipex->here_doc)
-		unlink("tmp_here_doc");
+		unlink("/tmp/tmp_here_doc");
 }
